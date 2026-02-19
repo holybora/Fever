@@ -1,6 +1,6 @@
 # :app
 
-Application entry point for HandyPlay. Single-activity Compose app with type-safe navigation and Hilt DI. Enables edge-to-edge display with transparent system navigation bar on 3-button devices. Includes debug-only E2E test recording infrastructure. Scaffold padding is conditionally applied based on destination (edge-to-edge for Fever).
+Single-screen application entry point showing the Fever weather feature. Single-activity Compose app with type-safe navigation and Hilt DI. Enables edge-to-edge display with transparent system navigation bar.
 
 ## Module Info
 
@@ -13,7 +13,7 @@ Application entry point for HandyPlay. Single-activity Compose app with type-saf
 
 - `:core:common`, `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:data`, `:core:model`, `:core:network`
 - `:navigation`
-- `:feature:welcome`, `:feature:home`, `:feature:category`, `:feature:ttlcache`, `:feature:gallery`, `:feature:fever`
+- `:feature:fever`
 - AndroidX Core, Lifecycle, Activity Compose
 - Compose BOM + Material3
 - Navigation Compose, Hilt Navigation Compose
@@ -22,23 +22,13 @@ Application entry point for HandyPlay. Single-activity Compose app with type-saf
 
 ### Main
 
-- `MainActivity.kt` — `@AndroidEntryPoint` single Activity, enables edge-to-edge with transparent system navigation bar (via `SystemBarStyle.auto(TRANSPARENT, TRANSPARENT)` and `isNavigationBarContrastEnforced = false`), sets content to `HandyPlayApp`
-- `HandyPlayApplication.kt` — `@HiltAndroidApp` Application class
-- `ui/HandyPlayApp.kt` — Root composable with `BottomSearchBarViewModel`, manages search state and destination-based visibility. Conditionally applies Scaffold padding: edge-to-edge for `FeverDestination` (line 98-101), standard padding for other destinations
-- `ui/HandyPlayNavHost.kt` — NavHost routes: `WelcomeDestination` → `HomeDestination` (pops Welcome), `HomeDestination` → `CategoryDestination`, `CategoryDestination` → `TtlCacheDestination`, `GalleryDestination`, or `FeverDestination` via `Topic.ID_*`
-- `ui/BottomSearchBarViewModel.kt` — `@HiltViewModel` managing search query, breadcrumb segments, bar visibility, and navigation events via Channel
-
-### Debug-only: E2E Test Recording (src/debug/)
-
-- `recording/RecordingActivity.kt` — Debug Activity that wraps `HandyPlayApp()` with `RecordingOverlay`; launches via intent action `com.sls.handbook.E2E_RECORD`
-- `recording/RecordingOverlay.kt` — Composable overlay: intercepts touch events via `pointerInput(PointerEventPass.Initial)`, classifies taps/swipes, shows draggable red stop button, pulsing recording indicator
-- `recording/RecordingController.kt` — Thread-safe event collector with relative timestamps
-- `recording/RecordedEvent.kt` — Event data classes (TAP, SWIPE, BACK_PRESS, TEXT_INPUT) and session metadata; serializes to JSON via `org.json`
+- `MainActivity.kt` — `@AndroidEntryPoint` single Activity, enables edge-to-edge with transparent system navigation bar, sets content to `HandyPlayApp`
+- `HandyPlayApplication.kt` — `@HiltAndroidApp` Application class with Rebugger debug logging
+- `ui/HandyPlayApp.kt` — Root composable with single `FeverRoute` destination, full-screen Fever weather display
 
 ## Source
 
 - `src/main/java/com/sls/handbook/` — Production code (single Activity + navigation)
-- `src/debug/java/com/sls/handbook/recording/` — Debug-only recording infrastructure (debug builds only)
 
 ## Build Commands
 
@@ -50,16 +40,7 @@ Application entry point for HandyPlay. Single-activity Compose app with type-saf
 ./gradlew :app:installAndRun  # Installs debug APK and launches MainActivity
 ```
 
-## Tests
-
-- `src/test/` — JVM unit tests
-  - `BottomSearchBarViewModelTest.kt` — ViewModel state management tests
-  - `BottomSearchBarModelsTest.kt` — `BottomSearchBarUiState`, `CurrentScreen`, navigation events tests
-- `src/androidTest/` — Compose UI / instrumented tests
-
 ## Notes
 
-- **Debug source set isolation**: All E2E recording code is in `src/debug/` and is compiled only for debug builds. Release builds have zero overhead.
-- **Recording workflow**: `/record-e2e` skill builds debug APK, launches `RecordingActivity` via custom intent, user interacts, taps red button to stop → JSON saved to `filesDir`, pulled via ADB, saved as test in `e2e-tests/<name>/`. `/run-e2e` skill replays tests.
-- **Touch interception without consumption**: `PointerEventPass.Initial` lets the overlay observe all touches without consuming them — the underlying UI works normally.
-- **Edge-to-edge Fever screen**: `HandyPlayApp.kt` detects `FeverDestination` and skips Scaffold padding to allow the Fever screen to extend to screen edges. Other destinations use standard Scaffold padding.
+- **Single screen**: App only shows `FeverRoute` via `FeverDestination`. No multi-screen navigation.
+- **Edge-to-edge display**: System navigation bar is transparent, allowing full-screen content.

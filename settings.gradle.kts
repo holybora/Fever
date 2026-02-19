@@ -39,9 +39,4 @@ include(":core:network")
 include(":navigation")
 
 // Features
-include(":feature:welcome")
-include(":feature:home")
-include(":feature:category")
-include(":feature:ttlcache")
-include(":feature:gallery")
 include(":feature:fever")

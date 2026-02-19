@@ -1,6 +1,6 @@
 # :navigation
 
-Type-safe navigation route definitions.
+Type-safe navigation route definitions. Minimal module providing Fever destination for the app.
 
 ## Module Info
 
@@ -15,20 +15,19 @@ Type-safe navigation route definitions.
 
 ## Key Files
 
-- `AppDestinations.kt` — `@Serializable` destination objects: `WelcomeDestination`, `HomeDestination`
+- `FeverDestination.kt` — `@Serializable` destination object for Fever weather screen
 
 ## Source
 
-- `src/main/java/com/sls/handbook/navigation/`
+- `src/main/kotlin/com/sls/handbook/navigation/`
 
 ## Tests
 
 - `src/test/` — JVM unit tests
-  - `AppDestinationsTest.kt` — Navigation destination construction, properties, equality, copy operations
+  - `FeverDestinationTest.kt` — Navigation destination instantiation test
 
 ## Notes
 
 - All navigation destinations are `@Serializable` objects/data classes
-- Add new screen destinations here as the app grows
+- Currently only defines `FeverDestination` since the app is single-screen
 - Feature modules depend on this module to reference destinations
-- The `:app` module's `NavHost` wires destinations to feature composables
