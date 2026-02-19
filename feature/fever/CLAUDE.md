@@ -73,7 +73,7 @@ Weather screen displaying random location conditions with current weather, 5-day
 
 ## Notes
 
-- The `FeverTheme` is **intentionally scoped** to the Fever screen via `FeverRoute` wrapper. It does NOT affect other screens (Home, Category, Gallery, TTL Cache), which continue using `HandyPlayTheme` from `:core:designsystem`.
+- The `FeverTheme` is **intentionally scoped** to the Fever screen via `FeverRoute` wrapper. It does NOT affect `HandyPlayTheme` from `:core:designsystem`.
 - The theme is light-mode only (sky blue gradient is inherently a light design); does not provide dark mode variants.
 - Stat pill icons use `material-icons-extended` (Thermostat, Air, WaterDrop) to avoid bloating core icon sets.
 - Do NOT add business logic or state management to composables. Keep all logic in `FeverViewModel`.

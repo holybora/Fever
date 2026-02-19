@@ -31,7 +31,7 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 
 # Single module tests
 ./gradlew :app:testDebugUnitTest
-./gradlew :feature:home:testDebugUnitTest
+./gradlew :feature:fever:testDebugUnitTest
 
 # Single test class
 ./gradlew testDebugUnitTest --tests "com.sls.handbook.ExampleUnitTest"
@@ -50,13 +50,13 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 # Static analysis (detekt)
 ./gradlew detekt                    # All modules, all source sets
 ./gradlew detektMain                # Main sources only
-./gradlew :feature:home:detektMain  # Single module
+./gradlew :feature:fever:detektMain  # Single module
 ./gradlew installGitHooks           # Install pre-commit hook manually
 
 # Android Lint
 ./gradlew lint                          # All modules
 ./gradlew :app:lintDebug               # Single module
-./gradlew :feature:home:lintDebug      # Single feature module
+./gradlew :feature:fever:lintDebug      # Single feature module
 ```
 
 ## SDK & Tooling
@@ -85,10 +85,7 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 | `:core:designsystem` | Android Library | Material3 theme (Color, Type, Theme) |
 | `:core:ui` | Android Library | Shared composables |
 | `:navigation` | Android Library | Type-safe route definitions |
-| `:feature:welcome` | Feature | Welcome/onboarding screen |
-| `:feature:home` | Feature | Home screen with category grid + search |
-| `:feature:category` | Feature | Category topics screen with topic grid + search |
-| `:feature:ttlcache` | Feature | TTL Cache demo screen with joke fetching |
+| `:feature:fever` | Feature | Weather screen with random location conditions |
 | `:build-logic` | Included Build | Convention plugins |
 
 ## Convention Plugins (`build-logic/`)
@@ -112,7 +109,7 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 :app
 ├── :core:common, :core:designsystem, :core:ui, :core:domain, :core:data, :core:model, :core:network
 ├── :navigation
-└── :feature:welcome, :feature:home, :feature:category, :feature:ttlcache
+└── :feature:fever
 
 :feature:* (via handyplay.android.feature plugin)
 ├── :core:ui, :core:designsystem, :core:domain, :core:model
