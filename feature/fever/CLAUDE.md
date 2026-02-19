@@ -21,7 +21,8 @@ Weather screen displaying random location conditions with current weather, 5-day
 
 ## Key Files
 
-- `FeverViewModel.kt` — `@HiltViewModel` with `StateFlow<FeverUiState>`, fetches current weather, 5-day daily forecast, and hourly forecast via `WeatherRepository`, maps all to `WeatherDisplayData` using `StringResolver`.
+- `FeverEvent.kt` — Sealed interface defining UI events (`Refresh`). Composables emit events via `onEvent: (FeverEvent) -> Unit`.
+- `FeverViewModel.kt` — `@HiltViewModel` using MVI pattern: processes `FeverEvent` via `onEvent()`, drops duplicate `Refresh` events while loading. Fetches current weather, 5-day daily forecast, and hourly forecast via `WeatherRepository`, maps all to `WeatherDisplayData` using `StringResolver`.
 - `FeverUiState.kt` — Sealed class: `Loading`, `Error`, `Success`. All expose `weatherDisplay: WeatherDisplayData` so `WeatherContent` is always rendered (using empty defaults for Loading/Error).
 - `WeatherDisplayData.kt` — Presentation model with pre-formatted fields for current weather, `forecast: List<DailyForecastDisplayData>`, and `hourlyForecasts: List<HourlyDisplayData>`. Factory: `empty()`.
 - `HourlyDisplayData.kt` — Data class with formatted hourly fields: `timeText`, `iconUrl`, `temperatureText`, `popText` (precipitation %).
@@ -53,7 +54,7 @@ Weather screen displaying random location conditions with current weather, 5-day
 
 ## Patterns
 
-- **ViewModel + StateFlow:** ViewModel exposes `uiState: StateFlow<FeverUiState>` collected via `collectAsStateWithLifecycle()` in Route
+- **MVI event pattern:** ViewModel exposes `onEvent(FeverEvent)` as single entry point for UI actions with exhaustive `when` handling. `Refresh` fires immediately but is dropped while already loading (guards via `_uiState`). UI state exposed as `StateFlow<FeverUiState>` collected via `collectAsStateWithLifecycle()` in Route.
 - **Always-rendered WeatherContent:** `WeatherContent` is rendered for all UI states; `FeverUiState` sealed class exposes `weatherDisplay` with `empty()` defaults for `Loading`/`Error`, so transitions are value changes (empty → real data) rather than container visibility toggles
 - **Fade animations for data transitions:** `AnimatedVisibility` with `fadeIn`/`fadeOut(tween(FadeDurationMs))` gates sections on data availability; `AnimatedContent` with matching fade spec animates individual text value changes; `Crossfade` animates weather icon swaps. All durations use shared `FadeDurationMs` constant.
 - **Route wrapper pattern:** `FeverRoute` wraps `FeverScreen` in `FeverTheme`, ensuring custom theme only applies to this feature
@@ -72,7 +73,7 @@ Weather screen displaying random location conditions with current weather, 5-day
 
 ## Notes
 
-- The `FeverTheme` is **intentionally scoped** to the Fever screen via `FeverRoute` wrapper. It does NOT affect other screens (Home, Category, Gallery, TTL Cache), which continue using `HandyPlayTheme` from `:core:designsystem`.
+- The `FeverTheme` is **intentionally scoped** to the Fever screen via `FeverRoute` wrapper. It does NOT affect `HandyPlayTheme` from `:core:designsystem`.
 - The theme is light-mode only (sky blue gradient is inherently a light design); does not provide dark mode variants.
 - Stat pill icons use `material-icons-extended` (Thermostat, Air, WaterDrop) to avoid bloating core icon sets.
 - Do NOT add business logic or state management to composables. Keep all logic in `FeverViewModel`.

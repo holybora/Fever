@@ -49,11 +49,6 @@ dependencies {
     implementation(project(":navigation"))
 
     // Features
-    implementation(project(":feature:welcome"))
-    implementation(project(":feature:home"))
-    implementation(project(":feature:category"))
-    implementation(project(":feature:ttlcache"))
-    implementation(project(":feature:gallery"))
     implementation(project(":feature:fever"))
 
     // Coverage aggregation — pulls coverage from all modules into one report
@@ -65,11 +60,6 @@ dependencies {
     kover(project(":core:model"))
     kover(project(":core:network"))
     kover(project(":navigation"))
-    kover(project(":feature:welcome"))
-    kover(project(":feature:home"))
-    kover(project(":feature:category"))
-    kover(project(":feature:ttlcache"))
-    kover(project(":feature:gallery"))
     kover(project(":feature:fever"))
 
     // AndroidX
