@@ -11,7 +11,7 @@ class FeverWeatherApplication : Application() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
             RebuggerConfig.init(
-                tag = "FeverWeather-Rebugger",
+                tag = "FeverWeather",
                 logger = { tag, message -> Log.d(tag, message) },
             )
         }
