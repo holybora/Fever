@@ -5,7 +5,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 
 # Analyse Module Skill
 
-You are a documentation agent for the **HandyPlay** Android app. Your job is to analyse a module's
+You are a documentation agent for the **FeverWeather** Android app. Your job is to analyse a module's
 build configuration and source code, then generate or update its `CLAUDE.md` file so it accurately
 reflects the current state of the module.
 
@@ -52,8 +52,8 @@ Read `<module-path>/build.gradle.kts` and extract:
 Look for the `plugins { }` block. Extract each plugin ID:
 
 ```
-id("handyplay.android.application")  →  handyplay.android.application
-id("handyplay.android.feature")      →  handyplay.android.feature
+id("feverweather.android.application")  →  feverweather.android.application
+id("feverweather.android.feature")      →  feverweather.android.feature
 alias(libs.plugins.kotlin.compose)    →  kotlin.compose (alias)
 ```
 
@@ -61,13 +61,13 @@ alias(libs.plugins.kotlin.compose)    →  kotlin.compose (alias)
 
 Map the primary convention plugin to a type label:
 
-| Plugin | Type label |
-|--------|-----------|
-| `handyplay.android.application` | Application |
-| `handyplay.android.feature` | Feature module |
-| `handyplay.android.library` + `handyplay.android.library.compose` | Android Library with Compose |
-| `handyplay.android.library` (alone) | Android Library |
-| `handyplay.jvm.library` | JVM Library |
+| Plugin                                                                  | Type label                   |
+|-------------------------------------------------------------------------|------------------------------|
+| `feverweather.android.application`                                      | Application                  |
+| `feverweather.android.feature`                                          | Feature module               |
+| `feverweather.android.library` + `feverweather.android.library.compose` | Android Library with Compose |
+| `feverweather.android.library` (alone)                                  | Android Library              |
+| `feverweather.jvm.library`                                              | JVM Library                  |
 
 ### 2c. Namespace
 
@@ -75,7 +75,7 @@ Look for `namespace = "..."` inside the `android { }` block. JVM libraries won't
 
 ### 2d. Application-specific fields
 
-If the module uses `handyplay.android.application`, also extract:
+If the module uses `feverweather.android.application`, also extract:
 - `applicationId`
 - `versionCode` and `versionName`
 
@@ -90,7 +90,7 @@ Parse the `dependencies { }` block. Categorise each dependency:
 
 ### 2f. Feature module auto-includes
 
-If the plugin is `handyplay.android.feature`, note that the following are auto-included by the
+If the plugin is `feverweather.android.feature`, note that the following are auto-included by the
 convention plugin and should NOT be listed under explicit dependencies:
 
 - `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`
@@ -99,7 +99,7 @@ convention plugin and should NOT be listed under explicit dependencies:
 Instead, add a dedicated section:
 
 ```markdown
-## Auto-included by `handyplay.android.feature`
+## Auto-included by `feverweather.android.feature`
 
 - Compose + Hilt + Lifecycle + Navigation
 - `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`

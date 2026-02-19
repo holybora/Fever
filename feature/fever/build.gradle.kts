@@ -1,5 +1,5 @@
 plugins {
-    id("handyplay.android.feature")
+    id("feverweather.android.feature")
 }
 
 android {

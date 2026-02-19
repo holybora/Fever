@@ -37,43 +37,43 @@ tasks {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "handyplay.android.application"
+            id = "feverweather.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidLibrary") {
-            id = "handyplay.android.library"
+            id = "feverweather.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidLibraryCompose") {
-            id = "handyplay.android.library.compose"
+            id = "feverweather.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidFeature") {
-            id = "handyplay.android.feature"
+            id = "feverweather.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
         register("androidHilt") {
-            id = "handyplay.android.hilt"
+            id = "feverweather.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
         }
         register("jvmLibrary") {
-            id = "handyplay.jvm.library"
+            id = "feverweather.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
         register("androidTest") {
-            id = "handyplay.android.test"
+            id = "feverweather.android.test"
             implementationClass = "AndroidTestConventionPlugin"
         }
         register("detekt") {
-            id = "handyplay.detekt"
+            id = "feverweather.detekt"
             implementationClass = "DetektConventionPlugin"
         }
         register("kover") {
-            id = "handyplay.kover"
+            id = "feverweather.kover"
             implementationClass = "KoverConventionPlugin"
         }
         register("androidLint") {
-            id = "handyplay.android.lint"
+            id = "feverweather.android.lint"
             implementationClass = "AndroidLintConventionPlugin"
         }
     }

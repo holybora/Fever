@@ -6,7 +6,7 @@ Shared composable components reused across feature modules.
 
 - **Namespace:** `com.sls.handbook.core.ui`
 - **Type:** Android Library with Compose
-- **Plugins:** `handyplay.android.library`, `handyplay.android.library.compose`
+- **Plugins:** `feverweather.android.library`, `feverweather.android.library.compose`
 
 ## Dependencies (exposed as `api`)
 

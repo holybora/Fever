@@ -6,7 +6,7 @@ Network/API layer with HTTP client setup and DI.
 
 - **Namespace:** `com.sls.handbook.core.network`
 - **Type:** Android Library
-- **Plugins:** `handyplay.android.library`, `handyplay.android.hilt`, `kotlin.serialization`
+- **Plugins:** `feverweather.android.library`, `feverweather.android.hilt`, `kotlin.serialization`
 
 ## Dependencies
 

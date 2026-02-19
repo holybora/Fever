@@ -6,12 +6,12 @@ import com.theapache64.rebugger.RebuggerConfig
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class HandyPlayApplication : Application() {
+class FeverWeatherApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
             RebuggerConfig.init(
-                tag = "HandyPlay-Rebugger",
+                tag = "FeverWeather",
                 logger = { tag, message -> Log.d(tag, message) },
             )
         }

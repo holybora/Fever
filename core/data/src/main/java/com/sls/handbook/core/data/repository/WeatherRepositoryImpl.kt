@@ -4,7 +4,6 @@ import com.sls.handbook.core.domain.repository.WeatherRepository
 import com.sls.handbook.core.model.DailyForecast
 import com.sls.handbook.core.model.HourlyForecast
 import com.sls.handbook.core.model.Weather
-import com.sls.handbook.core.network.api.HourlyForecastApi
 import com.sls.handbook.core.network.api.WeatherApi
 import com.sls.handbook.core.network.model.ForecastItemResponse
 import java.time.Instant
@@ -18,8 +17,7 @@ private const val MiddayHour = 12
 
 @Singleton
 class WeatherRepositoryImpl @Inject constructor(
-    private val weatherApi: WeatherApi,
-    private val hourlyForecastApi: HourlyForecastApi,
+    private val weatherApi: WeatherApi
 ) : WeatherRepository {
 
     override suspend fun getWeatherWithForecast(lat: Double, lon: Double): Pair<Weather, List<DailyForecast>> {
@@ -37,7 +35,7 @@ class WeatherRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getHourlyForecast(lat: Double, lon: Double): List<HourlyForecast> {
-        val response = hourlyForecastApi.getHourlyForecast(lat = lat, lon = lon, appId = AppId)
+        val response = weatherApi.getForecast(lat = lat, lon = lon, appId = AppId)
         val zoneOffset = ZoneOffset.ofTotalSeconds(response.city.timezone)
         val today = LocalDate.now(zoneOffset)
         return response.list

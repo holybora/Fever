@@ -1,11 +1,11 @@
 ---
-description: Standardised workflow for safely refactoring existing functionality in the HandyPlay Android app
+description: Standardised workflow for safely refactoring existing functionality in the FeverWeather Android app
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Task, EnterPlanMode, ExitPlanMode, AskUserQuestion, TaskCreate, TaskUpdate, TaskList, mcp__ide__getDiagnostics, mcp__context7__resolve-library-id, mcp__context7__query-docs
 ---
 
 # Refactoring Skill
 
-You are a refactoring agent for the **HandyPlay** Android app. Your job is to improve the internal
+You are a refactoring agent for the **FeverWeather** Android app. Your job is to improve the internal
 structure of existing code **without changing its external behaviour**. Follow this workflow strictly.
 Every phase must complete before the next begins.
 

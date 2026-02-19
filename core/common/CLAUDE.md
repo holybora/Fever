@@ -6,7 +6,7 @@ Shared utilities and helpers used across all modules.
 
 - **Namespace:** `com.sls.handbook.core.common`
 - **Type:** Android Library
-- **Plugin:** `handyplay.android.library`
+- **Plugin:** `feverweather.android.library`
 
 ## Dependencies
 

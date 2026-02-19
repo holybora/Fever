@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-HandyPlay is an Android application built with Jetpack Compose and Material 3.
+FeverWeather is an Android application built with Jetpack Compose and Material 3.
 Package: `com.sls.handbook`. Multi-module clean architecture project.
 
 ## Figma MCP server rules
@@ -90,18 +90,18 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 
 ## Convention Plugins (`build-logic/`)
 
-| Plugin ID | What it provides |
-|-----------|-----------------|
-| `handyplay.android.application` | Android app config (SDK, Kotlin, Java 11) |
-| `handyplay.android.library` | Android library config (SDK, Kotlin, Java 11) |
-| `handyplay.android.library.compose` | Compose compiler + BOM |
-| `handyplay.android.feature` | Library + Compose + Hilt + core module deps |
-| `handyplay.android.hilt` | KSP + Dagger Hilt |
-| `handyplay.android.test` | Common test dependencies (JUnit, MockK, Turbine, Coroutines Test) |
-| `handyplay.jvm.library` | Pure JVM Kotlin (Java 11) |
-| `handyplay.detekt` | Detekt static analysis + Compose rules |
-| `handyplay.kover` | Kover code coverage with exclusions for generated code, Hilt, and Compose (`@Composable`) |
-| `handyplay.android.lint` | Android Lint with `warningsAsErrors`, HTML/XML reports, `config/lint/lint.xml` |
+| Plugin ID                              | What it provides                                                                          |
+|----------------------------------------|-------------------------------------------------------------------------------------------|
+| `feverweather.android.application`     | Android app config (SDK, Kotlin, Java 11)                                                 |
+| `feverweather.android.library`         | Android library config (SDK, Kotlin, Java 11)                                             |
+| `feverweather.android.library.compose` | Compose compiler + BOM                                                                    |
+| `feverweather.android.feature`         | Library + Compose + Hilt + core module deps                                               |
+| `feverweather.android.hilt`            | KSP + Dagger Hilt                                                                         |
+| `feverweather.android.test`            | Common test dependencies (JUnit, MockK, Turbine, Coroutines Test)                         |
+| `feverweather.jvm.library`             | Pure JVM Kotlin (Java 11)                                                                 |
+| `feverweather.detekt`                  | Detekt static analysis + Compose rules                                                    |
+| `feverweather.kover`                   | Kover code coverage with exclusions for generated code, Hilt, and Compose (`@Composable`) |
+| `feverweather.android.lint`            | Android Lint with `warningsAsErrors`, HTML/XML reports, `config/lint/lint.xml`            |
 
 ## Dependency Graph
 
@@ -111,7 +111,7 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 ├── :navigation
 └── :feature:fever
 
-:feature:* (via handyplay.android.feature plugin)
+:feature:* (via feverweather.android.feature plugin)
 ├── :core:ui, :core:designsystem, :core:domain, :core:model
 └── :navigation
 

@@ -6,7 +6,7 @@ Repository implementations and data sources.
 
 - **Namespace:** `com.sls.handbook.core.data`
 - **Type:** Android Library
-- **Plugins:** `handyplay.android.library`, `handyplay.android.hilt`
+- **Plugins:** `feverweather.android.library`, `feverweather.android.hilt`
 
 ## Dependencies
 
