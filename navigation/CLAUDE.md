@@ -6,7 +6,7 @@ Type-safe navigation route definitions. Minimal module providing Fever destinati
 
 - **Namespace:** `com.sls.handbook.navigation`
 - **Type:** Android Library
-- **Plugins:** `handyplay.android.library`, `kotlin.serialization`
+- **Plugins:** `feverweather.android.library`, `kotlin.serialization`
 
 ## Dependencies (exposed as `api`)
 

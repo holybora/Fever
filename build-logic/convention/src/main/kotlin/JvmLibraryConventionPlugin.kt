@@ -12,8 +12,8 @@ class JvmLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.jvm")
-                apply("handyplay.detekt")
-                apply("handyplay.kover")
+                apply("feverweather.detekt")
+                apply("feverweather.kover")
             }
 
             extensions.configure<JavaPluginExtension> {

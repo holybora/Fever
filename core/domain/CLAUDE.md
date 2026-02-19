@@ -5,7 +5,7 @@ Business logic and use cases layer. **JVM-only** — no Android dependencies.
 ## Module Info
 
 - **Type:** JVM Library (no Android)
-- **Plugin:** `handyplay.jvm.library`
+- **Plugin:** `feverweather.jvm.library`
 
 ## Dependencies
 

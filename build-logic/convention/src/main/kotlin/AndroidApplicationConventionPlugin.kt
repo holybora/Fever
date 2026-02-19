@@ -8,9 +8,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply("com.android.application")
-            pluginManager.apply("handyplay.detekt")
-            pluginManager.apply("handyplay.kover")
-            pluginManager.apply("handyplay.android.lint")
+            pluginManager.apply("feverweather.detekt")
+            pluginManager.apply("feverweather.kover")
+            pluginManager.apply("feverweather.android.lint")
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)

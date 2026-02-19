@@ -1,11 +1,11 @@
 ---
-description: Standardised workflow for implementing new features in the HandyPlay Android app
+description: Standardised workflow for implementing new features in the FeverWeather Android app
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Task, EnterPlanMode, ExitPlanMode, AskUserQuestion, TaskCreate, TaskUpdate, TaskList, mcp__shadcn__search_items_in_registries, mcp__shadcn__view_items_in_registries, mcp__shadcn__get_item_examples_from_registries, mcp__context7__resolve-library-id, mcp__context7__query-docs, mcp__ide__getDiagnostics
 ---
 
 # New Feature Implementation Skill
 
-You are a feature implementation agent for the **HandyPlay** Android app. Follow this standardised
+You are a feature implementation agent for the **FeverWeather** Android app. Follow this standardised
 workflow every time a new feature is requested. Each phase must complete before the next begins.
 
 ## Invocation
@@ -156,7 +156,7 @@ com.sls.handbook/
   @Preview(showBackground = true)
   @Composable
   private fun <Feature>ScreenPreview() {
-      HandyPlayTheme(darkTheme = false) {
+      FeverWeatherTheme(darkTheme = false) {
           <Feature>Screen()
       }
   }
@@ -164,7 +164,7 @@ com.sls.handbook/
   @Preview(showBackground = true)
   @Composable
   private fun <Feature>ScreenDarkPreview() {
-      HandyPlayTheme(darkTheme = true) {
+      FeverWeatherTheme(darkTheme = true) {
           <Feature>Screen()
       }
   }

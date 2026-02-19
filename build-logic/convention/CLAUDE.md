@@ -4,18 +4,18 @@ Convention plugins for standardised Gradle module configuration.
 
 ## Plugin Catalog
 
-| Plugin ID | Class | What it does |
-|-----------|-------|-------------|
-| `handyplay.android.application` | `AndroidApplicationConventionPlugin` | Android app defaults (SDK 36/33, Kotlin, Java 11, auto-applies detekt + kover + lint) |
-| `handyplay.android.library` | `AndroidLibraryConventionPlugin` | Android library defaults (SDK, Kotlin, Java 11, auto-applies detekt + kover + lint) |
-| `handyplay.android.library.compose` | `AndroidLibraryComposeConventionPlugin` | Adds Compose compiler plugin + Compose BOM |
-| `handyplay.android.feature` | `AndroidFeatureConventionPlugin` | Library + Compose + Hilt + core module deps + Lifecycle |
-| `handyplay.android.hilt` | `AndroidHiltConventionPlugin` | KSP + Dagger Hilt (android + compiler) |
-| `handyplay.android.test` | `AndroidTestConventionPlugin` | Common test dependencies (JUnit, MockK, Turbine, Coroutines Test, Robolectric, Compose UI test) |
-| `handyplay.jvm.library` | `JvmLibraryConventionPlugin` | Pure JVM Kotlin (Java 11, no Android, auto-applies detekt + kover) |
-| `handyplay.detekt` | `DetektConventionPlugin` | Static analysis with detekt + formatting + Compose rules |
-| `handyplay.kover` | `KoverConventionPlugin` | Code coverage with exclusions for generated code, Hilt, and Compose (`@Composable`) |
-| `handyplay.android.lint` | `AndroidLintConventionPlugin` | Android Lint with `warningsAsErrors`, HTML/XML reports, `config/lint/lint.xml` |
+| Plugin ID                              | Class                                   | What it does                                                                                    |
+|----------------------------------------|-----------------------------------------|-------------------------------------------------------------------------------------------------|
+| `feverweather.android.application`     | `AndroidApplicationConventionPlugin`    | Android app defaults (SDK 36/33, Kotlin, Java 11, auto-applies detekt + kover + lint)           |
+| `feverweather.android.library`         | `AndroidLibraryConventionPlugin`        | Android library defaults (SDK, Kotlin, Java 11, auto-applies detekt + kover + lint)             |
+| `feverweather.android.library.compose` | `AndroidLibraryComposeConventionPlugin` | Adds Compose compiler plugin + Compose BOM                                                      |
+| `feverweather.android.feature`         | `AndroidFeatureConventionPlugin`        | Library + Compose + Hilt + core module deps + Lifecycle                                         |
+| `feverweather.android.hilt`            | `AndroidHiltConventionPlugin`           | KSP + Dagger Hilt (android + compiler)                                                          |
+| `feverweather.android.test`            | `AndroidTestConventionPlugin`           | Common test dependencies (JUnit, MockK, Turbine, Coroutines Test, Robolectric, Compose UI test) |
+| `feverweather.jvm.library`             | `JvmLibraryConventionPlugin`            | Pure JVM Kotlin (Java 11, no Android, auto-applies detekt + kover)                              |
+| `feverweather.detekt`                  | `DetektConventionPlugin`                | Static analysis with detekt + formatting + Compose rules                                        |
+| `feverweather.kover`                   | `KoverConventionPlugin`                 | Code coverage with exclusions for generated code, Hilt, and Compose (`@Composable`)             |
+| `feverweather.android.lint`            | `AndroidLintConventionPlugin`           | Android Lint with `warningsAsErrors`, HTML/XML reports, `config/lint/lint.xml`                  |
 
 ## Key Files
 

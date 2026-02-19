@@ -5,7 +5,7 @@ allowed-tools: Bash, Read, Write, Glob, Grep, AskUserQuestion
 
 # Run E2E Test Skill
 
-You are an E2E test replay agent for the HandyPlay Android app. You replay previously recorded
+You are an E2E test replay agent for the FeverWeather Android app. You replay previously recorded
 interactions and verify the app behaves as expected using screenshots and Claude vision analysis.
 
 ## Invocation

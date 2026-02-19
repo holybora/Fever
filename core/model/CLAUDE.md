@@ -5,7 +5,7 @@ Pure Kotlin data models shared across the app. **JVM-only** — no Android depen
 ## Module Info
 
 - **Type:** JVM Library (no Android)
-- **Plugins:** `handyplay.jvm.library`, `kotlin.serialization`
+- **Plugins:** `feverweather.jvm.library`, `kotlin.serialization`
 
 ## Dependencies
 

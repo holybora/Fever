@@ -1,5 +1,5 @@
 plugins {
-    id("handyplay.jvm.library")
+    id("feverweather.jvm.library")
 }
 
 dependencies {

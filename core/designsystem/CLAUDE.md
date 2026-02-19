@@ -6,7 +6,7 @@ Material3 design system — theme tokens, colors, and typography.
 
 - **Namespace:** `com.sls.handbook.core.designsystem`
 - **Type:** Android Library with Compose
-- **Plugins:** `handyplay.android.library`, `handyplay.android.library.compose`
+- **Plugins:** `feverweather.android.library`, `feverweather.android.library.compose`
 
 ## Dependencies (exposed as `api`)
 
@@ -17,7 +17,7 @@ Material3 design system — theme tokens, colors, and typography.
 ## Key Files
 
 - `theme/Color.kt` — Color palette definitions
-- `theme/Theme.kt` — `HandyPlayTheme` composable (dynamic colors API 31+, static fallback)
+- `theme/Theme.kt` — `FeverWeatherTheme` composable (dynamic colors API 31+, static fallback)
 - `theme/Type.kt` — Typography scale
 
 ## Source

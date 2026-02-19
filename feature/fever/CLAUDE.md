@@ -6,9 +6,9 @@ Weather screen displaying random location conditions with current weather, 5-day
 
 - **Namespace:** `com.sls.handbook.feature.fever`
 - **Type:** Feature module
-- **Plugin:** `handyplay.android.feature`
+- **Plugin:** `feverweather.android.feature`
 
-## Auto-included by `handyplay.android.feature`
+## Auto-included by `feverweather.android.feature`
 
 - Compose + Hilt + Lifecycle + Navigation
 - `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`
@@ -73,9 +73,10 @@ Weather screen displaying random location conditions with current weather, 5-day
 
 ## Notes
 
-- The `FeverTheme` is **intentionally scoped** to the Fever screen via `FeverRoute` wrapper. It does NOT affect `HandyPlayTheme` from `:core:designsystem`.
+- The `FeverTheme` is **intentionally scoped** to the Fever screen via `FeverRoute` wrapper. 
 - The theme is light-mode only (sky blue gradient is inherently a light design); does not provide dark mode variants.
 - Stat pill icons use `material-icons-extended` (Thermostat, Air, WaterDrop) to avoid bloating core icon sets.
 - Do NOT add business logic or state management to composables. Keep all logic in `FeverViewModel`.
-- Edge-to-edge display is enabled app-wide via `WindowCompat.setDecorFitsSystemWindows(window, false)` in HandyPlayApp; inset padding is applied per-composable as needed.
+- Edge-to-edge display is enabled app-wide via `WindowCompat.setDecorFitsSystemWindows(window, false)` in
+  FeverWeatherApp; inset padding is applied per-composable as needed.
 - All user-visible strings must use `stringResource()` in composables or `StringResolver` in ViewModel/Mapper for i18n support. Do NOT hardcode strings.

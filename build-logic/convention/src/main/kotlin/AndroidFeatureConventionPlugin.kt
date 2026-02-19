@@ -7,10 +7,10 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply {
-                apply("handyplay.android.library")
-                apply("handyplay.android.library.compose")
-                apply("handyplay.android.hilt")
-                apply("handyplay.android.test")
+                apply("feverweather.android.library")
+                apply("feverweather.android.library.compose")
+                apply("feverweather.android.hilt")
+                apply("feverweather.android.test")
             }
 
             dependencies {

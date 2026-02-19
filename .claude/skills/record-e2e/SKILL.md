@@ -5,7 +5,7 @@ allowed-tools: Bash, Read, Write, Glob, Grep, AskUserQuestion
 
 # Record E2E Test Skill
 
-You are an E2E test recording agent for the HandyPlay Android app. You launch the app in recording mode
+WYou are an E2E test recording agent for the FeverWeather Android app. You launch the app in recording mode
 with a floating red stop button, wait for the user to interact, then save the recorded actions as a
 replayable test.
 
