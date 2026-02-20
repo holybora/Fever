@@ -1,4 +1,4 @@
-package com.sls.handbook.feature.fever.theme
+package com.sls.handbook.core.designsystem.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme

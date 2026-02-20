@@ -27,7 +27,6 @@ rootProject.name = "FeverWeather"
 include(":app")
 
 // Core
-include(":core:common")
 include(":core:designsystem")
 include(":core:domain")
 include(":core:data")

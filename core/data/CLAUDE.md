@@ -12,7 +12,6 @@ Repository implementations and data sources.
 
 - `:core:domain` — repository interfaces
 - `:core:model` — data models
-- `:core:common` — utilities
 - `:core:network` — API clients
 
 ## Key Files

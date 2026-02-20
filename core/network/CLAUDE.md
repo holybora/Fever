@@ -10,7 +10,6 @@ Network/API layer with HTTP client setup and DI.
 
 ## Dependencies
 
-- `:core:common`
 - `kotlinx-serialization-json`, `retrofit`, `okhttp`, `gson`
 
 ## Key Files

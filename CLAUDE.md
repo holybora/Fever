@@ -77,7 +77,6 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 | Module | Type | Purpose |
 |--------|------|---------|
 | `:app` | Application | Entry point, NavHost, Hilt setup |
-| `:core:common` | Android Library | Shared utilities |
 | `:core:model` | JVM Library | Data models (`@Serializable`) |
 | `:core:domain` | JVM Library | Use cases / business logic |
 | `:core:data` | Android Library | Repositories, data sources |
@@ -106,7 +105,7 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 
 ```
 :app
-├── :core:common, :core:designsystem, :core:domain, :core:data, :core:model, :core:network
+├── :core:designsystem, :core:domain, :core:data, :core:model, :core:network
 ├── :navigation
 └── :feature:fever
 
@@ -114,9 +113,8 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 ├── :core:designsystem, :core:domain, :core:model
 └── :navigation
 
-:core:data → :core:domain, :core:model, :core:common
+:core:data → :core:domain, :core:model, :core:network
 :core:domain → :core:model
-:core:network → :core:common
 ```
 
 ## Architecture Patterns

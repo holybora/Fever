@@ -30,7 +30,6 @@ android {
 dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
-    implementation(project(":core:common"))
     implementation(project(":core:network"))
 
     implementation(libs.androidx.core.ktx)

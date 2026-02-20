@@ -55,20 +55,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.sls.handbook.core.designsystem.theme.FeverTheme
+import com.sls.handbook.core.designsystem.theme.IconTeal
+import com.sls.handbook.core.designsystem.theme.LocalFeverColors
+import com.sls.handbook.feature.fever.FeverUiState
 import com.sls.handbook.feature.fever.R
 import com.sls.handbook.feature.fever.entity.DailyForecastDisplayData
 import com.sls.handbook.feature.fever.entity.HourlyDisplayData
 import com.sls.handbook.feature.fever.entity.WeatherDisplayData
-import com.sls.handbook.feature.fever.theme.FeverTheme
-import com.sls.handbook.feature.fever.theme.IconTeal
-import com.sls.handbook.feature.fever.theme.LocalFeverColors
 import com.theapache64.rebugger.Rebugger
 
 internal const val FadeDurationMs = 550
 
 @Composable
 fun FeverScreen(
-    uiState: com.sls.handbook.feature.fever.FeverUiState,
+    uiState: FeverUiState,
     onEvent: (com.sls.handbook.feature.fever.FeverEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -82,7 +83,7 @@ fun FeverScreen(
     val retryLabel = stringResource(R.string.fever_error_retry)
     val currentOnEvent by rememberUpdatedState(onEvent)
 
-    if (uiState is com.sls.handbook.feature.fever.FeverUiState.Error) {
+    if (uiState is FeverUiState.Error) {
         LaunchedEffect(uiState.message) {
             val result = snackbarHostState.showSnackbar(
                 message = uiState.message,
@@ -102,7 +103,7 @@ fun FeverScreen(
         WeatherContent(weatherDisplay = uiState.weatherDisplay)
         ErrorSnackbar(snackbarHostState = snackbarHostState, modifier = Modifier.align(Alignment.BottomCenter))
         SwipeHintFab(
-            isLoading = uiState is com.sls.handbook.feature.fever.FeverUiState.Loading,
+            isLoading = uiState is FeverUiState.Loading,
             icon = Icons.AutoMirrored.Filled.Redo,
             contentDescription = stringResource(R.string.fever_swipe_right_hint),
             onClick = { onEvent(com.sls.handbook.feature.fever.FeverEvent.Refresh) },
@@ -553,7 +554,7 @@ private val previewWeatherDisplay = WeatherDisplayData(
 @Composable
 private fun FeverScreenLoadingPreview() {
     FeverTheme {
-        FeverScreen(uiState = com.sls.handbook.feature.fever.FeverUiState.Loading, onEvent = {})
+        FeverScreen(uiState = FeverUiState.Loading, onEvent = {})
     }
 }
 
@@ -561,7 +562,7 @@ private fun FeverScreenLoadingPreview() {
 @Composable
 private fun FeverScreenSuccessPreview() {
     FeverTheme {
-        FeverScreen(uiState = com.sls.handbook.feature.fever.FeverUiState.Success(previewWeatherDisplay), onEvent = {})
+        FeverScreen(uiState = FeverUiState.Success(previewWeatherDisplay), onEvent = {})
     }
 }
 
@@ -570,7 +571,7 @@ private fun FeverScreenSuccessPreview() {
 private fun FeverScreenErrorPreview() {
     FeverTheme {
         FeverScreen(
-            uiState = com.sls.handbook.feature.fever.FeverUiState.Error("Unable to determine location"),
+            uiState = FeverUiState.Error("Unable to determine location"),
             onEvent = {},
         )
     }

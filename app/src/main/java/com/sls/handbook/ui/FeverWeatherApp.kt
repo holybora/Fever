@@ -20,12 +20,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.sls.handbook.core.designsystem.theme.FeverTheme
 import com.sls.handbook.feature.fever.FeverRoute
-import com.sls.handbook.feature.fever.theme.FeverTheme
 import com.sls.handbook.navigation.FeverDestination
 import com.theapache64.rebugger.Rebugger
 
-@Suppress("LongMethod")
 @Composable
 fun FeverWeatherApp(
     modifier: Modifier = Modifier,
@@ -55,7 +54,6 @@ fun FeverWeatherApp(
     }
 }
 
-@Suppress("LongMethod")
 @Composable
 private fun FeverWeatherNavHost(
     navController: NavHostController,
