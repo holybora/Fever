@@ -1,5 +1,6 @@
 package com.sls.handbook.core.data.repository
 
+import com.sls.handbook.core.domain.exception.WeatherException
 import com.sls.handbook.core.network.api.WeatherApi
 import com.sls.handbook.core.network.model.CityResponse
 import com.sls.handbook.core.network.model.CoordResponse
@@ -14,8 +15,12 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import java.io.IOException
 import kotlinx.coroutines.test.runTest
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import retrofit2.HttpException
+import retrofit2.Response
 
 class WeatherRepositoryImplTest {
 
@@ -98,11 +103,61 @@ class WeatherRepositoryImplTest {
         assertEquals("", item.description)
     }
 
-    @Test(expected = IOException::class)
-    fun `getWeather propagates API exception`() = runTest {
+    @Test(expected = WeatherException.Network::class)
+    fun `getWeather wraps IOException in WeatherException Network`() = runTest {
         coEvery { weatherApi.getWeather(any(), any(), any(), any()) } throws IOException("timeout")
 
         repository.getWeather(10.0, 20.0, "en")
+    }
+
+    @Test
+    fun `getWeather wraps HttpException in WeatherException Server`() = runTest {
+        val httpException = HttpException(
+            Response.error<Any>(500, "Internal Server Error".toResponseBody()),
+        )
+        coEvery { weatherApi.getWeather(any(), any(), any(), any()) } throws httpException
+
+        try {
+            repository.getWeather(10.0, 20.0, "en")
+            @Suppress("UNREACHABLE_CODE")
+            assertTrue("Expected WeatherException.Server", false)
+        } catch (e: WeatherException.Server) {
+            assertEquals(500, e.code)
+        }
+    }
+
+    @Test(expected = WeatherException.DataParsing::class)
+    fun `getWeather wraps unexpected exception in WeatherException DataParsing`() = runTest {
+        coEvery {
+            weatherApi.getWeather(any(), any(), any(), any())
+        } throws RuntimeException("parse error")
+
+        repository.getWeather(10.0, 20.0, "en")
+    }
+
+    @Test(expected = WeatherException.Network::class)
+    fun `getForecastData wraps IOException in WeatherException Network`() = runTest {
+        coEvery {
+            weatherApi.getForecast(any(), any(), any(), any())
+        } throws IOException("timeout")
+
+        repository.getForecastData(10.0, 20.0, "en")
+    }
+
+    @Test
+    fun `getForecastData wraps HttpException in WeatherException Server`() = runTest {
+        val httpException = HttpException(
+            Response.error<Any>(404, "Not Found".toResponseBody()),
+        )
+        coEvery { weatherApi.getForecast(any(), any(), any(), any()) } throws httpException
+
+        try {
+            repository.getForecastData(10.0, 20.0, "en")
+            @Suppress("UNREACHABLE_CODE")
+            assertTrue("Expected WeatherException.Server", false)
+        } catch (e: WeatherException.Server) {
+            assertEquals(404, e.code)
+        }
     }
 
     private fun weatherResponse(

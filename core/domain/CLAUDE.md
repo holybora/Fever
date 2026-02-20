@@ -14,6 +14,7 @@ Business logic and use cases layer. **JVM-only** — no Android dependencies.
 
 ## Key Files
 
+- `exception/WeatherException.kt` — Sealed class with `Network`, `Server`, `DataParsing` subclasses for domain-level exception handling
 - `repository/WeatherRepository.kt` — Repository interface with `getWeather(lat, lon)` and `getForecastData(lat, lon)` for raw weather data access
 - `usecase/GetCurrentWeatherUseCase.kt` — Suspend use case wrapping `WeatherRepository.getWeather()`
 - `usecase/GetForecastDataUseCase.kt` — Suspend use case wrapping `WeatherRepository.getForecastData()`

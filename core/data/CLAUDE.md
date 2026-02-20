@@ -17,7 +17,7 @@ Repository implementations and data sources.
 
 ## Key Files
 
-- `repository/WeatherRepositoryImpl.kt` — `@Singleton` thin implementation: fetches current weather and raw forecast data via OpenWeatherMap API, maps DTOs to domain models (no business logic — filtering/aggregation handled by use cases in `:core:domain`)
+- `repository/WeatherRepositoryImpl.kt` — `@Singleton` thin implementation: fetches current weather and raw forecast data via OpenWeatherMap API, maps DTOs to domain models (no business logic — filtering/aggregation handled by use cases in `:core:domain`). Wraps API calls with `weatherApiCall()` helper to map `IOException` → `WeatherException.Network`, `HttpException` → `WeatherException.Server`, other → `WeatherException.DataParsing`.
 - `di/DataModule.kt` — Hilt `@Binds` mapping repository implementations to interfaces
 - `di/ApiKeyModule.kt` — Provides `ApiKeyProvider` implementation from BuildConfig
 
@@ -28,7 +28,7 @@ Repository implementations and data sources.
 ## Tests
 
 - `src/test/` — JVM unit tests
-  - `WeatherRepositoryImplTest.kt` — MockK-based API mocking, response mapping, null handling, error propagation tests
+  - `WeatherRepositoryImplTest.kt` — MockK-based API mocking, response mapping, null handling, exception wrapping tests (IOException → Network, HttpException → Server, JSON errors → DataParsing)
 
 ## Notes
 

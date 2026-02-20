@@ -89,40 +89,39 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
 
-fun launchApp() {
-    val packageName = android.defaultConfig.applicationId ?: "com.sls.handbook"
-
-    println("Launching $packageName...")
-
-    project.providers.exec {
-        commandLine(
-            "adb",
-            "shell",
-            "am",
-            "start",
-            "-n",
-            "$packageName/.MainActivity",
-            "-a",
-            "android.intent.action.MAIN",
-            "-c",
-            "android.intent.category.LAUNCHER"
-        )
-    }.result.get().assertNormalExitValue()
-
-    println("App launched successfully!")
+tasks.register<Exec>("launchDebugApp") {
+    group = "install"
+    description = "Launches the debug app via adb"
+    commandLine(
+        "adb", "shell", "am", "start",
+        "-n", "com.sls.handbook/.MainActivity",
+        "-a", "android.intent.action.MAIN",
+        "-c", "android.intent.category.LAUNCHER"
+    )
 }
 
 tasks.register("installAndRun") {
     group = "install"
     description = "Installs the Debug build and launches the app"
     dependsOn("installDebug")
-    doLast { launchApp() }
+    finalizedBy("launchDebugApp")
+}
+
+tasks.register<Exec>("launchReleaseApp") {
+    group = "install"
+    description = "Launches the release app via adb"
+    commandLine(
+        "adb", "shell", "am", "start",
+        "-n", "com.sls.handbook/.MainActivity",
+        "-a", "android.intent.action.MAIN",
+        "-c", "android.intent.category.LAUNCHER"
+    )
 }
 
 tasks.register("installAndRunRelease") {
     group = "install"
     description = "Installs the Release build and launches the app"
     dependsOn("installRelease")
-    doLast { launchApp() }
+    finalizedBy("launchReleaseApp")
 }
 

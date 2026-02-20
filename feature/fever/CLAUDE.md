@@ -22,7 +22,7 @@ Weather screen displaying random location conditions with current weather, 5-day
 ## Key Files
 
 - `FeverEvent.kt` — Sealed interface defining UI events (`Refresh`). Composables emit events via `onEvent: (FeverEvent) -> Unit`.
-- `FeverViewModel.kt` — `@HiltViewModel` using MVI pattern: processes `FeverEvent` via `onEvent()`, drops duplicate `Refresh` events while loading. Orchestrates 5 domain use cases (`GenerateRandomCoordinates`, `GetCurrentWeather`, `GetForecastData`, `GetFiveDayForecast`, `GetTodayHourlyForecast`) with concurrent weather+forecast fetching via `coroutineScope`/`async`, maps results to `WeatherDisplayData` using `StringResolver`. Error handling: `IOException` → localized network error, generic `Exception` → localized unknown error (never exposes raw exception messages).
+- `FeverViewModel.kt` — `@HiltViewModel` using MVI pattern: processes `FeverEvent` via `onEvent()`, drops duplicate `Refresh` events while loading. Orchestrates 5 domain use cases (`GenerateRandomCoordinates`, `GetCurrentWeather`, `GetForecastData`, `GetFiveDayForecast`, `GetTodayHourlyForecast`) with concurrent weather+forecast fetching via `coroutineScope`/`async`, maps results to `WeatherDisplayData` using `StringResolver`. Error handling: catches specific `WeatherException` subclasses (`Network`, `Server`, `DataParsing`), logs via `Log.w(TAG, ...)`, maps to localized error messages (never exposes raw exception). Removes `@Suppress` annotations.
 - `FeverUiState.kt` — Sealed class: `Loading`, `Error`, `Success`. All expose `weatherDisplay: WeatherDisplayData` so `WeatherContent` is always rendered (using empty defaults for Loading/Error).
 - `WeatherDisplayData.kt` — Presentation model with pre-formatted fields for current weather, `forecast: List<DailyForecastDisplayData>`, and `hourlyForecasts: List<HourlyDisplayData>`. Factory: `empty()`.
 - `HourlyDisplayData.kt` — Data class with formatted hourly fields: `timeText`, `iconUrl`, `temperatureText`, `popText` (precipitation %).
@@ -49,11 +49,13 @@ Weather screen displaying random location conditions with current weather, 5-day
 - `src/main/res/values/strings.xml` — English string resources
 - `src/main/res/values-de/`, `values-es/`, `values-fr/` — German, Spanish, French translations
 - `src/test/kotlin/com/sls/handbook/feature/fever/` — Unit tests
+  - `FeverViewModelTest.kt` — MVI event handling, state transitions (Loading → Success), Refresh debouncing, error recovery, exception-to-UI-state mapping (Network/Server/DataParsing → localized messages)
   - `WeatherMapperTest.kt` — Tests for current weather, daily forecast, and hourly forecast mapping
   - `HourlyDisplayDataMapperTest.kt` — Tests for hourly display data formatting (time, temperature, pop%)
 
 ## Patterns
 
+- **Domain exception handling:** Domain exceptions (`WeatherException.Network`, `.Server`, `.DataParsing`) are thrown from repository layer and caught in ViewModel, mapped to localized UI messages and logged. Prevents raw exception exposure, enables specific error handling per exception type.
 - **MVI event pattern:** ViewModel exposes `onEvent(FeverEvent)` as single entry point for UI actions with exhaustive `when` handling. `Refresh` fires immediately but is dropped while already loading (guards via `_uiState`). UI state exposed as `StateFlow<FeverUiState>` collected via `collectAsStateWithLifecycle()` in Route.
 - **Always-rendered WeatherContent:** `WeatherContent` is rendered for all UI states; `FeverUiState` sealed class exposes `weatherDisplay` with `empty()` defaults for `Loading`/`Error`, so transitions are value changes (empty → real data) rather than container visibility toggles
 - **Fade animations for data transitions:** `AnimatedVisibility` with `fadeIn`/`fadeOut(tween(FadeDurationMs))` gates sections on data availability; `AnimatedContent` with matching fade spec animates individual text value changes; `Crossfade` animates weather icon swaps. All durations use shared `FadeDurationMs` constant.
