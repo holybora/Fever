@@ -4,6 +4,11 @@ import com.sls.handbook.core.network.ApiKeyProvider
 import okhttp3.Interceptor
 import okhttp3.Response
 
+/**
+ * OkHttp interceptor that appends the `appid` query parameter to every request.
+ *
+ * @param apiKeyProvider supplier of the OpenWeatherMap API key
+ */
 internal class ApiKeyInterceptor(
     private val apiKeyProvider: ApiKeyProvider,
 ) : Interceptor {

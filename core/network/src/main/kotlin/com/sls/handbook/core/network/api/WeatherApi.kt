@@ -5,6 +5,11 @@ import com.sls.handbook.core.network.model.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * Retrofit service interface for the OpenWeatherMap REST API.
+ *
+ * All endpoints use metric units and support language localization via the `lang` parameter.
+ */
 interface WeatherApi {
 
     @GET("data/2.5/weather")

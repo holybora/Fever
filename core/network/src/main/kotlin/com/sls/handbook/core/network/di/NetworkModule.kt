@@ -15,6 +15,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Hilt module providing the HTTP client stack: [OkHttpClient], [Retrofit], and [WeatherApi].
+ *
+ * Configures timeouts, API key injection via [ApiKeyInterceptor], and debug-only HTTP logging.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {

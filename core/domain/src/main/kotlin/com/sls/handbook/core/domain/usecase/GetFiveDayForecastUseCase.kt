@@ -9,6 +9,12 @@ import java.time.ZoneOffset
 import javax.inject.Inject
 import kotlin.math.abs
 
+/**
+ * Transforms raw [ForecastData] into a list of [DailyForecast] entries for the next five days.
+ *
+ * Groups forecast items by UTC date, filters out today's entries, then aggregates each
+ * remaining day by selecting the midday icon and computing the overall min/max temperatures.
+ */
 class GetFiveDayForecastUseCase @Inject constructor() {
 
     operator fun invoke(forecastData: ForecastData): List<DailyForecast> {

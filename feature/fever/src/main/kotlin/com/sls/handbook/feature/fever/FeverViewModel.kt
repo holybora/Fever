@@ -24,6 +24,20 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for the Fever weather screen, following the MVI pattern.
+ *
+ * Orchestrates domain use cases to generate a random location, fetch current weather
+ * and forecast data concurrently, then maps results to [WeatherDisplayData] for the UI.
+ *
+ * @param stringResolver provides localized string resolution without a direct Context dependency
+ * @param getCurrentWeather retrieves current weather for a coordinate pair
+ * @param getForecastData retrieves raw 3-hourly forecast data
+ * @param getFiveDayForecast aggregates forecast data into daily summaries
+ * @param getTodayHourlyForecast filters forecast data to today's hourly entries
+ * @param generateRandomCoordinates produces a random lat/lon pair
+ * @param ioDispatcher coroutine dispatcher for network I/O operations
+ */
 @HiltViewModel
 class FeverViewModel @Inject constructor(
     private val stringResolver: StringResolver,

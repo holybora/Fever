@@ -4,6 +4,11 @@ import com.sls.handbook.core.model.Coordinates
 import javax.inject.Inject
 import kotlin.random.Random
 
+/**
+ * Generates a random geographic [Coordinates] pair within valid Earth bounds.
+ *
+ * Latitude is sampled uniformly from [-90, 90) and longitude from [-180, 180).
+ */
 class GenerateRandomCoordinatesUseCase @Inject constructor() {
 
     operator fun invoke(): Coordinates {
