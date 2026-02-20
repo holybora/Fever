@@ -1,4 +1,4 @@
-package com.sls.handbook.feature.fever
+package com.sls.handbook.feature.fever.ui
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -36,8 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_9_PRO
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.graphics.painter.ColorPainter
 import coil3.compose.AsyncImage
+import com.sls.handbook.feature.fever.R
+import com.sls.handbook.feature.fever.entity.HourlyDisplayData
 import com.sls.handbook.feature.fever.theme.FeverTheme
 import com.sls.handbook.feature.fever.theme.LocalFeverColors
 

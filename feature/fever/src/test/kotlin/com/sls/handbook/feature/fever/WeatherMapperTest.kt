@@ -2,6 +2,7 @@ package com.sls.handbook.feature.fever
 
 import com.sls.handbook.core.model.DailyForecast
 import com.sls.handbook.core.model.Weather
+import com.sls.handbook.feature.fever.entity.DailyForecastDisplayData
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

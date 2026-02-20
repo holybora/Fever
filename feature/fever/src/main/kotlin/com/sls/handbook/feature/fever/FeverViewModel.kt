@@ -8,6 +8,7 @@ import com.sls.handbook.core.domain.usecase.GetFiveDayForecastUseCase
 import com.sls.handbook.core.domain.usecase.GetForecastDataUseCase
 import com.sls.handbook.core.domain.usecase.GetTodayHourlyForecastUseCase
 import com.sls.handbook.feature.fever.di.IoDispatcher
+import com.sls.handbook.feature.fever.ui.FadeDurationMs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.IOException
 import java.util.Locale
@@ -67,7 +68,7 @@ class FeverViewModel @Inject constructor(
                 }
                 val dailyForecast = getFiveDayForecast(forecastData)
                 val hourlyForecasts = getTodayHourlyForecast(forecastData)
-                // fake delay to make animation transition smooth
+                // Trade-off: fake delay to make animation transition smooth, could be removed if desired
                 delay(FadeDurationMs.toLong())
                 _uiState.value = FeverUiState.Success(
                     weather.toDisplayData(

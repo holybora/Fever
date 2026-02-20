@@ -3,6 +3,9 @@ package com.sls.handbook.feature.fever
 import com.sls.handbook.core.model.DailyForecast
 import com.sls.handbook.core.model.HourlyForecast
 import com.sls.handbook.core.model.Weather
+import com.sls.handbook.feature.fever.entity.DailyForecastDisplayData
+import com.sls.handbook.feature.fever.entity.HourlyDisplayData
+import com.sls.handbook.feature.fever.entity.WeatherDisplayData
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

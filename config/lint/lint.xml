@@ -6,4 +6,6 @@
     <issue id="AndroidGradlePluginVersion" severity="ignore" />
     <!-- Overly strict for composable-heavy codebase -->
     <issue id="ObsoleteLintCustomCheck" severity="warning" />
+    <!-- minSdk 33 makes resource qualifiers like -v26 redundant but harmless -->
+    <issue id="ObsoleteSdkInt" severity="ignore" />
 </lint>

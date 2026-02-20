@@ -1,4 +1,4 @@
-package com.sls.handbook.feature.fever
+package com.sls.handbook.feature.fever.entity
 
 data class DailyForecastDisplayData(
     val dayName: String,

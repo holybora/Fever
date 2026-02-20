@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sls.handbook.feature.fever.theme.FeverTheme
+import com.sls.handbook.feature.fever.ui.FeverScreen
 import com.theapache64.rebugger.Rebugger
 
 @Composable
