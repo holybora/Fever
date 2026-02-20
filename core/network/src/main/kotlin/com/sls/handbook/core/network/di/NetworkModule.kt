@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Named
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,7 +32,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @Named("weather")
     fun provideWeatherRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/")
@@ -44,7 +42,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideWeatherApi(@Named("weather") retrofit: Retrofit): WeatherApi {
+    fun provideWeatherApi(retrofit: Retrofit): WeatherApi {
         return retrofit.create(WeatherApi::class.java)
     }
 }

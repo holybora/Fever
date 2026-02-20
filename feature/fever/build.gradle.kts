@@ -4,6 +4,9 @@ plugins {
 
 android {
     namespace = "com.sls.handbook.feature.fever"
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 dependencies {
