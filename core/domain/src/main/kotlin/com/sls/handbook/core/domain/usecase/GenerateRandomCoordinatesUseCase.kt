@@ -1,13 +1,12 @@
-package com.sls.handbook.feature.fever
+package com.sls.handbook.core.domain.usecase
 
+import com.sls.handbook.core.model.Coordinates
 import javax.inject.Inject
 import kotlin.random.Random
 
-data class Coordinates(val latitude: Double, val longitude: Double)
+class GenerateRandomCoordinatesUseCase @Inject constructor() {
 
-class RandomCoordinatesGenerator @Inject constructor() {
-
-    fun generate(): Coordinates {
+    operator fun invoke(): Coordinates {
         val lat = Random.nextDouble(LAT_MIN, LAT_MAX)
         val lon = Random.nextDouble(LON_MIN, LON_MAX)
         return Coordinates(lat, lon)

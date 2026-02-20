@@ -20,6 +20,9 @@ Pure Kotlin data models shared across the app. **JVM-only** — no Android depen
 - `Weather.kt` — `@Serializable` data class for current weather with lat, lon, temperature, icon, description, wind, humidity, pressure, visibility, feelsLike
 - `DailyForecast.kt` — `@Serializable` data class with date, high, low, icon, description
 - `HourlyForecast.kt` — `@Serializable` data class with dt (Unix timestamp), temperature, icon, description, pop (precipitation probability)
+- `Coordinates.kt` — `@Serializable` data class with latitude, longitude
+- `ForecastItem.kt` — `@Serializable` data class for raw 3-hourly forecast entry (dt, temperature, tempMin, tempMax, icon, description, pop)
+- `ForecastData.kt` — `@Serializable` data class wrapping `List<ForecastItem>` with `timezoneOffsetSeconds`
 
 ## Source
 
