@@ -34,7 +34,9 @@ dependencies {
     implementation(project(":core:network"))
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.retrofit.core)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.okhttp.core)
 }

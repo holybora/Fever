@@ -1,6 +1,7 @@
 package com.sls.handbook.feature.fever
 
 import app.cash.turbine.test
+import com.sls.handbook.core.domain.exception.WeatherException
 import com.sls.handbook.core.domain.usecase.GenerateRandomCoordinatesUseCase
 import com.sls.handbook.core.domain.usecase.GetCurrentWeatherUseCase
 import com.sls.handbook.core.domain.usecase.GetFiveDayForecastUseCase
@@ -13,6 +14,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
+import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -116,25 +118,59 @@ class FeverViewModelTest {
     }
 
     @Test
-    fun `emits Error when use case throws`() = runTest(testDispatcher) {
+    fun `emits Error with network message on WeatherException Network`() = runTest(testDispatcher) {
+        every { stringResolver.getString(R.string.fever_network_error) } returns "Network error"
         coEvery {
             getCurrentWeather(any(), any(), any())
-        } throws RuntimeException("Network error")
+        } throws WeatherException.Network(IOException("timeout"))
 
         val viewModel = createViewModel()
 
         viewModel.uiState.test {
             assertEquals(FeverUiState.Loading, awaitItem())
             advanceUntilIdle()
-            assertTrue(awaitItem() is FeverUiState.Error)
+            assertEquals(FeverUiState.Error("Network error"), awaitItem())
         }
     }
+
+    @Test
+    fun `emits Error with server message on WeatherException Server`() = runTest(testDispatcher) {
+        every { stringResolver.getString(R.string.fever_server_error) } returns "Server error"
+        coEvery {
+            getCurrentWeather(any(), any(), any())
+        } throws WeatherException.Server(500, "Internal Server Error", RuntimeException())
+
+        val viewModel = createViewModel()
+
+        viewModel.uiState.test {
+            assertEquals(FeverUiState.Loading, awaitItem())
+            advanceUntilIdle()
+            assertEquals(FeverUiState.Error("Server error"), awaitItem())
+        }
+    }
+
+    @Test
+    fun `emits Error with unknown message on WeatherException DataParsing`() =
+        runTest(testDispatcher) {
+            every { stringResolver.getString(R.string.fever_unknown_error) } returns "Unknown error"
+            coEvery {
+                getCurrentWeather(any(), any(), any())
+            } throws WeatherException.DataParsing(RuntimeException("bad json"))
+
+            val viewModel = createViewModel()
+
+            viewModel.uiState.test {
+                assertEquals(FeverUiState.Loading, awaitItem())
+                advanceUntilIdle()
+                assertEquals(FeverUiState.Error("Unknown error"), awaitItem())
+            }
+        }
 
     @Test
     fun `onEvent Refresh works after Error state`() = runTest(testDispatcher) {
         coEvery {
             getCurrentWeather(any(), any(), any())
-        } throws RuntimeException("fail")
+        } throws WeatherException.Network(IOException("fail"))
 
         val viewModel = createViewModel()
         advanceUntilIdle()

@@ -1,7 +1,9 @@
 package com.sls.handbook.feature.fever
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sls.handbook.core.domain.exception.WeatherException
 import com.sls.handbook.core.domain.usecase.GenerateRandomCoordinatesUseCase
 import com.sls.handbook.core.domain.usecase.GetCurrentWeatherUseCase
 import com.sls.handbook.core.domain.usecase.GetFiveDayForecastUseCase
@@ -10,7 +12,6 @@ import com.sls.handbook.core.domain.usecase.GetTodayHourlyForecastUseCase
 import com.sls.handbook.feature.fever.di.IoDispatcher
 import com.sls.handbook.feature.fever.ui.FadeDurationMs
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.io.IOException
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
@@ -79,15 +80,26 @@ class FeverViewModel @Inject constructor(
                 )
             } catch (e: CancellationException) {
                 throw e
-            } catch (@Suppress("SwallowedException") e: IOException) {
+            } catch (e: WeatherException.Network) {
+                Log.w(TAG, "Network error loading weather", e)
                 _uiState.value = FeverUiState.Error(
                     stringResolver.getString(R.string.fever_network_error),
                 )
-            } catch (@Suppress("TooGenericExceptionCaught", "SwallowedException") e: Exception) {
+            } catch (e: WeatherException.Server) {
+                Log.w(TAG, "Server error loading weather", e)
+                _uiState.value = FeverUiState.Error(
+                    stringResolver.getString(R.string.fever_server_error),
+                )
+            } catch (e: WeatherException.DataParsing) {
+                Log.w(TAG, "Data parsing error loading weather", e)
                 _uiState.value = FeverUiState.Error(
                     stringResolver.getString(R.string.fever_unknown_error),
                 )
             }
         }
+    }
+
+    private companion object {
+        const val TAG = "FeverViewModel"
     }
 }
