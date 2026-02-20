@@ -19,7 +19,7 @@ Convention plugins for standardised Gradle module configuration.
 
 ## Key Files
 
-- `AndroidFeatureConventionPlugin.kt` — Most complex; auto-adds `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation` + Compose/Lifecycle/Hilt deps
+- `AndroidFeatureConventionPlugin.kt` — Most complex; auto-adds `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation` + Compose/Lifecycle/Hilt deps
 - `KoverConventionPlugin.kt` — Excludes `@Composable`, `@Preview`, Hilt, and generated Android classes from coverage reports
 - `DetektConventionPlugin.kt` — Configures detekt with custom rules from `config/detekt/detekt.yml`
 - `KotlinAndroid.kt` — Shared Kotlin/Android configuration (SDK levels, JVM target)

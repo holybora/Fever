@@ -11,7 +11,7 @@ Weather screen displaying random location conditions with current weather, 5-day
 ## Auto-included by `feverweather.android.feature`
 
 - Compose + Hilt + Lifecycle + Navigation
-- `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`
+- `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`
 
 ## Dependencies
 

@@ -29,4 +29,4 @@ Material3 design system — theme tokens, colors, and typography.
 - This is the single source of truth for theming
 - All Compose modules get Material3 transitively through this module
 - Add new design tokens (shapes, spacing) here
-- Do NOT add business components — those go in `:core:ui`
+- Do NOT add business components — those belong in feature modules

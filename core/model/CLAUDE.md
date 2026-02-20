@@ -38,4 +38,4 @@ Pure Kotlin data models shared across the app. **JVM-only** — no Android depen
 
 - All models use `@Serializable` for kotlinx.serialization
 - Keep models as plain data classes — no business logic
-- This module is depended on by `:core:domain`, `:core:data`, `:core:ui`, and all feature modules
+- This module is depended on by `:core:domain`, `:core:data`, and all feature modules

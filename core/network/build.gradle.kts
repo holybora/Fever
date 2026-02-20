@@ -6,6 +6,10 @@ plugins {
 
 android {
     namespace = "com.sls.handbook.core.network"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {

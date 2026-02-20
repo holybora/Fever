@@ -83,7 +83,6 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 | `:core:data` | Android Library | Repositories, data sources |
 | `:core:network` | Android Library | API client, network DI |
 | `:core:designsystem` | Android Library | Material3 theme (Color, Type, Theme) |
-| `:core:ui` | Android Library | Shared composables |
 | `:navigation` | Android Library | Type-safe route definitions |
 | `:feature:fever` | Feature | Weather screen with random location conditions |
 | `:build-logic` | Included Build | Convention plugins |
@@ -107,17 +106,16 @@ Package: `com.sls.handbook`. Multi-module clean architecture project.
 
 ```
 :app
-├── :core:common, :core:designsystem, :core:ui, :core:domain, :core:data, :core:model, :core:network
+├── :core:common, :core:designsystem, :core:domain, :core:data, :core:model, :core:network
 ├── :navigation
 └── :feature:fever
 
 :feature:* (via feverweather.android.feature plugin)
-├── :core:ui, :core:designsystem, :core:domain, :core:model
+├── :core:designsystem, :core:domain, :core:model
 └── :navigation
 
 :core:data → :core:domain, :core:model, :core:common
 :core:domain → :core:model
-:core:ui → :core:designsystem (api), :core:model (api)
 :core:network → :core:common
 ```
 

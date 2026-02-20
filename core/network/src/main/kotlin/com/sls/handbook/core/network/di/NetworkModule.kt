@@ -1,6 +1,7 @@
 package com.sls.handbook.core.network.di
 
 import com.sls.handbook.core.network.ApiKeyProvider
+import com.sls.handbook.core.network.BuildConfig
 import com.sls.handbook.core.network.api.WeatherApi
 import com.sls.handbook.core.network.interceptor.ApiKeyInterceptor
 import dagger.Module
@@ -24,7 +25,11 @@ object NetworkModule {
             .addInterceptor(ApiKeyInterceptor(apiKeyProvider))
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
+                    level = if (BuildConfig.DEBUG) {
+                        HttpLoggingInterceptor.Level.BODY
+                    } else {
+                        HttpLoggingInterceptor.Level.NONE
+                    }
                 },
             )
             .build()
