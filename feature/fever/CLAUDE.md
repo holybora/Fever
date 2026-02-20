@@ -22,7 +22,7 @@ Weather screen displaying random location conditions with current weather, 5-day
 ## Key Files
 
 - `FeverEvent.kt` — Sealed interface defining UI events (`Refresh`). Composables emit events via `onEvent: (FeverEvent) -> Unit`.
-- `FeverViewModel.kt` — `@HiltViewModel` using MVI pattern: processes `FeverEvent` via `onEvent()`, drops duplicate `Refresh` events while loading. Orchestrates 5 domain use cases (`GenerateRandomCoordinates`, `GetCurrentWeather`, `GetForecastData`, `GetFiveDayForecast`, `GetTodayHourlyForecast`) with concurrent weather+forecast fetching via `coroutineScope`/`async`, maps results to `WeatherDisplayData` using `StringResolver`.
+- `FeverViewModel.kt` — `@HiltViewModel` using MVI pattern: processes `FeverEvent` via `onEvent()`, drops duplicate `Refresh` events while loading. Orchestrates 5 domain use cases (`GenerateRandomCoordinates`, `GetCurrentWeather`, `GetForecastData`, `GetFiveDayForecast`, `GetTodayHourlyForecast`) with concurrent weather+forecast fetching via `coroutineScope`/`async`, maps results to `WeatherDisplayData` using `StringResolver`. Error handling: `IOException` → localized network error, generic `Exception` → localized unknown error (never exposes raw exception messages).
 - `FeverUiState.kt` — Sealed class: `Loading`, `Error`, `Success`. All expose `weatherDisplay: WeatherDisplayData` so `WeatherContent` is always rendered (using empty defaults for Loading/Error).
 - `WeatherDisplayData.kt` — Presentation model with pre-formatted fields for current weather, `forecast: List<DailyForecastDisplayData>`, and `hourlyForecasts: List<HourlyDisplayData>`. Factory: `empty()`.
 - `HourlyDisplayData.kt` — Data class with formatted hourly fields: `timeText`, `iconUrl`, `temperatureText`, `popText` (precipitation %).

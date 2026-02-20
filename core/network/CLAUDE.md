@@ -11,19 +11,15 @@ Network/API layer with HTTP client setup and DI.
 ## Dependencies
 
 - `:core:common`
-- `kotlinx-serialization-json`
+- `kotlinx-serialization-json`, `retrofit`, `okhttp`, `gson`
 
 ## Key Files
 
-- `api/JokeApi.kt` — Retrofit interface: `@GET("random_joke") suspend fun getRandomJoke(): JokeResponse`
-- `api/WeatherApi.kt` — Retrofit interface: `@GET("data/2.5/weather") suspend fun getWeather(lat, lon, units, lang): WeatherResponse`
-- `api/HourlyForecastApi.kt` — Retrofit interface: `@GET("data/2.5/forecast") suspend fun getHourlyForecast(lat, lon, appId, units): HourlyForecastResponse`
-- `api/DailyForecastApi.kt` — Retrofit interface: `@GET("data/2.5/forecast") suspend fun getDailyForecast(lat, lon, appId, units): DailyForecastResponse`
-- `model/JokeResponse.kt` — Gson-annotated response model with `type`, `setup`, `punchline`, `id`
-- `model/WeatherResponse.kt` — Serializable response model for current weather from OpenWeatherMap
-- `model/HourlyForecastResponse.kt` — Serializable response model with `list` (hourly entries), `city` (timezone info)
-- `model/DailyForecastResponse.kt` — Serializable response model for 5-day forecast
-- `di/NetworkModule.kt` — Hilt `@Module` providing OkHttp, Retrofit instances for joke API (`official-joke-api.appspot.com`) and OpenWeatherMap (`api.openweathermap.org`), and API service providers
+- `api/WeatherApi.kt` — Retrofit interface: `getWeather(lat, lon, units, lang)` and `getForecast(lat, lon, units, lang)`
+- `model/WeatherResponse.kt` — Gson-annotated response DTOs for current weather and forecast from OpenWeatherMap
+- `interceptor/ApiKeyInterceptor.kt` — OkHttp interceptor that adds `appid` query parameter via `ApiKeyProvider`
+- `ApiKeyProvider.kt` — Interface for supplying the API key (implemented in `:core:data`)
+- `di/NetworkModule.kt` — Hilt `@Module` providing OkHttp (with 15s connect / 30s read/write timeouts), Retrofit, and `WeatherApi`
 
 ## Source
 
@@ -32,7 +28,7 @@ Network/API layer with HTTP client setup and DI.
 ## Tests
 
 - `src/test/` — JVM unit tests
-  - `JokeResponseTest.kt` — Data class properties, equality, copy operations tests
+  - `ApiKeyInterceptorTest.kt` — MockK-based chain mocking, query parameter injection, existing parameter preservation
 
 ## Notes
 

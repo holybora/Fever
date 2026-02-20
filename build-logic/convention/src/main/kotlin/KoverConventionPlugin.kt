@@ -35,7 +35,7 @@ class KoverConventionPlugin : Plugin<Project> {
                     }
                     verify {
                         rule {
-                            minBound(30)
+                            minBound(50)
                         }
                     }
                 }

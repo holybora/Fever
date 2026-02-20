@@ -23,6 +23,7 @@
     <string name="fever_visibility_km_format">%1$d km</string>
     <string name="fever_unknown_location">Unbekannter Standort</string>
     <string name="fever_unknown_error">Unbekannter Fehler</string>
+    <string name="fever_network_error">Netzwerkfehler. Bitte prüfen Sie Ihre Verbindung und versuchen Sie es erneut.</string>
 
     <!-- Forecast section -->
     <string name="fever_forecast_header">Vorhersage</string>
