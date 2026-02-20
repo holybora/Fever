@@ -38,10 +38,10 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_9_PRO
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.sls.handbook.core.designsystem.theme.FeverTheme
+import com.sls.handbook.core.designsystem.theme.LocalFeverColors
 import com.sls.handbook.feature.fever.R
 import com.sls.handbook.feature.fever.entity.HourlyDisplayData
-import com.sls.handbook.feature.fever.theme.FeverTheme
-import com.sls.handbook.feature.fever.theme.LocalFeverColors
 
 @Composable
 internal fun GlassCard(

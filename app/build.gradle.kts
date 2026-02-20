@@ -37,7 +37,6 @@ android {
 
 dependencies {
     // Core modules
-    implementation(project(":core:common"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:domain"))
     implementation(project(":core:data"))
@@ -51,7 +50,6 @@ dependencies {
     implementation(project(":feature:fever"))
 
     // Coverage aggregation — pulls coverage from all modules into one report
-    kover(project(":core:common"))
     kover(project(":core:designsystem"))
     kover(project(":core:domain"))
     kover(project(":core:data"))
