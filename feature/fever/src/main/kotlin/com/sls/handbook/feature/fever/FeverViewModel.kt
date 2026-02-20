@@ -11,6 +11,7 @@ import com.sls.handbook.feature.fever.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Locale
 import javax.inject.Inject
+import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -74,6 +75,8 @@ class FeverViewModel @Inject constructor(
                         hourlyForecasts = hourlyForecasts,
                     ),
                 )
+            } catch (e: CancellationException) {
+                throw e
             } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
                 _uiState.value = FeverUiState.Error(
                     e.message ?: stringResolver.getString(R.string.fever_unknown_error),

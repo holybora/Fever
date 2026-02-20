@@ -93,7 +93,7 @@ Parse the `dependencies { }` block. Categorise each dependency:
 If the plugin is `feverweather.android.feature`, note that the following are auto-included by the
 convention plugin and should NOT be listed under explicit dependencies:
 
-- `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`
+- `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`
 - Compose BOM + Material3, Lifecycle runtime + viewmodel + compose, Hilt
 
 Instead, add a dedicated section:
@@ -102,7 +102,7 @@ Instead, add a dedicated section:
 ## Auto-included by `feverweather.android.feature`
 
 - Compose + Hilt + Lifecycle + Navigation
-- `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`
+- `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation`
 ```
 
 Only list dependencies in the `## Dependencies` section if they are **explicitly declared** in the

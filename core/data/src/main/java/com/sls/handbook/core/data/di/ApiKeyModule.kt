@@ -1,5 +1,6 @@
 package com.sls.handbook.core.data.di
 
+import com.sls.handbook.core.data.BuildConfig
 import com.sls.handbook.core.network.ApiKeyProvider
 import dagger.Module
 import dagger.Provides
@@ -12,6 +13,6 @@ internal object ApiKeyModule {
 
     @Provides
     fun provideApiKeyProvider(): ApiKeyProvider = object : ApiKeyProvider {
-        override fun getApiKey(): String = "ae103060692fe13422deb98285505dc6"
+        override fun getApiKey(): String = BuildConfig.OPENWEATHER_API_KEY
     }
 }

@@ -33,6 +33,11 @@ class KoverConventionPlugin : Plugin<Project> {
                             )
                         }
                     }
+                    verify {
+                        rule {
+                            minBound(30)
+                        }
+                    }
                 }
             }
         }

@@ -11,7 +11,7 @@ Single-screen application entry point showing the Fever weather feature. Single-
 
 ## Dependencies
 
-- `:core:common`, `:core:ui`, `:core:designsystem`, `:core:domain`, `:core:data`, `:core:model`, `:core:network`
+- `:core:common`, `:core:designsystem`, `:core:domain`, `:core:data`, `:core:model`, `:core:network`
 - `:navigation`
 - `:feature:fever`
 - AndroidX Core, Lifecycle, Activity Compose
