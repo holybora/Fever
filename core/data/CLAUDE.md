@@ -10,8 +10,8 @@ Repository implementations and data sources.
 
 ## Dependencies
 
-- `:core:domain` (api) — repository interfaces
-- `:core:model` (api) — data models
+- `:core:domain` — repository interfaces
+- `:core:model` — data models
 - `:core:common` — utilities
 - `:core:network` — API clients
 
@@ -36,4 +36,3 @@ Repository implementations and data sources.
 - Implements repository interfaces from `:core:domain`
 - Uses Hilt `@Module` + `@Binds` to provide repository implementations
 - Coordinates between local and remote data sources
-- Exposes `:core:domain` and `:core:model` transitively via `api`

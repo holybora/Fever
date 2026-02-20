@@ -1,6 +1,8 @@
 package com.sls.handbook.core.network.di
 
+import com.sls.handbook.core.network.ApiKeyProvider
 import com.sls.handbook.core.network.api.WeatherApi
+import com.sls.handbook.core.network.interceptor.ApiKeyInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +20,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(apiKeyProvider: ApiKeyProvider): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(ApiKeyInterceptor(apiKeyProvider))
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
