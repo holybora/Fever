@@ -23,7 +23,7 @@ android {
 //            ?: ""
         //FIXME: This should ideally be placed in local.properties,
         // but I’m leaving it here so the app can be built and run without any additional changes
-        buildConfigField("String", "OPENWEATHER_API_KEY", "ae103060692fe13422deb98285505dc6")
+        buildConfigField("String", "OPENWEATHER_API_KEY", "\"ae103060692fe13422deb98285505dc6\"")
     }
 }
 
