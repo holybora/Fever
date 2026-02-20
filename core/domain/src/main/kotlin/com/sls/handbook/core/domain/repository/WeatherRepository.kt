@@ -5,6 +5,6 @@ import com.sls.handbook.core.model.HourlyForecast
 import com.sls.handbook.core.model.Weather
 
 interface WeatherRepository {
-    suspend fun getWeatherWithForecast(lat: Double, lon: Double): Pair<Weather, List<DailyForecast>>
-    suspend fun getHourlyForecast(lat: Double, lon: Double): List<HourlyForecast>
+    suspend fun getWeatherWithForecast(lat: Double, lon: Double, lang: String): Pair<Weather, List<DailyForecast>>
+    suspend fun getHourlyForecast(lat: Double, lon: Double, lang: String): List<HourlyForecast>
 }

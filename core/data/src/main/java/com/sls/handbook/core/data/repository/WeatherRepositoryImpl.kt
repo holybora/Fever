@@ -20,9 +20,13 @@ class WeatherRepositoryImpl @Inject constructor(
     private val weatherApi: WeatherApi
 ) : WeatherRepository {
 
-    override suspend fun getWeatherWithForecast(lat: Double, lon: Double): Pair<Weather, List<DailyForecast>> {
-        val weather = fetchWeather(lat, lon)
-        val forecastResponse = weatherApi.getForecast(lat = lat, lon = lon, appId = AppId)
+    override suspend fun getWeatherWithForecast(
+        lat: Double,
+        lon: Double,
+        lang: String,
+    ): Pair<Weather, List<DailyForecast>> {
+        val weather = fetchWeather(lat, lon, lang)
+        val forecastResponse = weatherApi.getForecast(lat = lat, lon = lon, appId = AppId, lang = lang)
         val today = LocalDate.now(ZoneOffset.UTC)
         val forecast = forecastResponse.list
             .groupBy { item ->
@@ -34,8 +38,8 @@ class WeatherRepositoryImpl @Inject constructor(
         return weather to forecast
     }
 
-    override suspend fun getHourlyForecast(lat: Double, lon: Double): List<HourlyForecast> {
-        val response = weatherApi.getForecast(lat = lat, lon = lon, appId = AppId)
+    override suspend fun getHourlyForecast(lat: Double, lon: Double, lang: String): List<HourlyForecast> {
+        val response = weatherApi.getForecast(lat = lat, lon = lon, appId = AppId, lang = lang)
         val zoneOffset = ZoneOffset.ofTotalSeconds(response.city.timezone)
         val today = LocalDate.now(zoneOffset)
         return response.list
@@ -55,8 +59,8 @@ class WeatherRepositoryImpl @Inject constructor(
             }
     }
 
-    private suspend fun fetchWeather(lat: Double, lon: Double): Weather {
-        val response = weatherApi.getWeather(lat = lat, lon = lon, appId = AppId)
+    private suspend fun fetchWeather(lat: Double, lon: Double, lang: String): Weather {
+        val response = weatherApi.getWeather(lat = lat, lon = lon, appId = AppId, lang = lang)
         val condition = response.weather.firstOrNull()
         return Weather(
             cityName = response.name,

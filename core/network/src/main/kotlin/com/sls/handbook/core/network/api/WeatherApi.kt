@@ -13,6 +13,7 @@ interface WeatherApi {
         @Query("lon") lon: Double,
         @Query("appid") appId: String,
         @Query("units") units: String = "metric",
+        @Query("lang") lang: String,
     ): WeatherResponse
 
     @GET("data/2.5/forecast")
@@ -21,5 +22,6 @@ interface WeatherApi {
         @Query("lon") lon: Double,
         @Query("appid") appId: String,
         @Query("units") units: String = "metric",
+        @Query("lang") lang: String,
     ): ForecastResponse
 }
