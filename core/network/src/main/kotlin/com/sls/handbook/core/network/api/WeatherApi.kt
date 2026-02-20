@@ -11,7 +11,6 @@ interface WeatherApi {
     suspend fun getWeather(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
-        @Query("appid") appId: String,
         @Query("units") units: String = "metric",
         @Query("lang") lang: String,
     ): WeatherResponse
@@ -20,7 +19,6 @@ interface WeatherApi {
     suspend fun getForecast(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
-        @Query("appid") appId: String,
         @Query("units") units: String = "metric",
         @Query("lang") lang: String,
     ): ForecastResponse

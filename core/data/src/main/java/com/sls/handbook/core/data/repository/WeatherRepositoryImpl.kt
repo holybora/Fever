@@ -8,15 +8,13 @@ import com.sls.handbook.core.network.api.WeatherApi
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val AppId = "ae103060692fe13422deb98285505dc6"
-
 @Singleton
 class WeatherRepositoryImpl @Inject constructor(
     private val weatherApi: WeatherApi,
 ) : WeatherRepository {
 
     override suspend fun getWeather(lat: Double, lon: Double, lang: String): Weather {
-        val response = weatherApi.getWeather(lat = lat, lon = lon, appId = AppId, lang = lang)
+        val response = weatherApi.getWeather(lat = lat, lon = lon, lang = lang)
         val condition = response.weather.firstOrNull()
         return Weather(
             cityName = response.name,
@@ -37,7 +35,7 @@ class WeatherRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getForecastData(lat: Double, lon: Double, lang: String): ForecastData {
-        val response = weatherApi.getForecast(lat = lat, lon = lon, appId = AppId, lang = lang)
+        val response = weatherApi.getForecast(lat = lat, lon = lon, lang = lang)
         return ForecastData(
             items = response.list.map { entry ->
                 val condition = entry.weather.firstOrNull()
