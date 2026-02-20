@@ -1,4 +1,4 @@
-package com.sls.handbook.feature.fever
+package com.sls.handbook.feature.fever.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -26,7 +26,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.Redo
 import androidx.compose.material.icons.filled.Air
 import androidx.compose.material.icons.filled.Thermostat
 import androidx.compose.material.icons.filled.WaterDrop
@@ -54,19 +54,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.graphics.painter.ColorPainter
 import coil3.compose.AsyncImage
+import com.sls.handbook.feature.fever.R
+import com.sls.handbook.feature.fever.entity.DailyForecastDisplayData
+import com.sls.handbook.feature.fever.entity.HourlyDisplayData
+import com.sls.handbook.feature.fever.entity.WeatherDisplayData
 import com.sls.handbook.feature.fever.theme.FeverTheme
 import com.sls.handbook.feature.fever.theme.IconTeal
 import com.sls.handbook.feature.fever.theme.LocalFeverColors
 import com.theapache64.rebugger.Rebugger
 
-internal const val FadeDurationMs = 450
+internal const val FadeDurationMs = 550
 
 @Composable
 fun FeverScreen(
-    uiState: FeverUiState,
-    onEvent: (FeverEvent) -> Unit,
+    uiState: com.sls.handbook.feature.fever.FeverUiState,
+    onEvent: (com.sls.handbook.feature.fever.FeverEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Rebugger(composableName = "FeverScreen", trackMap = mapOf("uiState" to uiState))
@@ -79,14 +82,14 @@ fun FeverScreen(
     val retryLabel = stringResource(R.string.fever_error_retry)
     val currentOnEvent by rememberUpdatedState(onEvent)
 
-    if (uiState is FeverUiState.Error) {
+    if (uiState is com.sls.handbook.feature.fever.FeverUiState.Error) {
         LaunchedEffect(uiState.message) {
             val result = snackbarHostState.showSnackbar(
                 message = uiState.message,
                 actionLabel = retryLabel,
             )
             if (result == SnackbarResult.ActionPerformed) {
-                currentOnEvent(FeverEvent.Refresh)
+                currentOnEvent(com.sls.handbook.feature.fever.FeverEvent.Refresh)
             }
         }
     }
@@ -99,10 +102,10 @@ fun FeverScreen(
         WeatherContent(weatherDisplay = uiState.weatherDisplay)
         ErrorSnackbar(snackbarHostState = snackbarHostState, modifier = Modifier.align(Alignment.BottomCenter))
         SwipeHintFab(
-            isLoading = uiState is FeverUiState.Loading,
-            icon = Icons.AutoMirrored.Filled.ArrowForward,
+            isLoading = uiState is com.sls.handbook.feature.fever.FeverUiState.Loading,
+            icon = Icons.AutoMirrored.Filled.Redo,
             contentDescription = stringResource(R.string.fever_swipe_right_hint),
-            onClick = { onEvent(FeverEvent.Refresh) },
+            onClick = { onEvent(com.sls.handbook.feature.fever.FeverEvent.Refresh) },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .navigationBarsPadding()
@@ -231,7 +234,7 @@ private fun WeatherContent(weatherDisplay: WeatherDisplayData) {
             enter = fadeIn(animationSpec = tween(durationMillis = FadeDurationMs)),
             exit = fadeOut(animationSpec = tween(durationMillis = FadeDurationMs)),
         ) {
-            ForecastSection(forecast = weatherDisplay.fiveDaysForecast)
+            FiveDaysForecastSection(forecast = weatherDisplay.fiveDaysForecast)
         }
         Spacer(modifier = Modifier.height(96.dp))
     }
@@ -397,7 +400,7 @@ private fun DetailsSection(weatherDisplay: WeatherDisplayData) {
 }
 
 @Composable
-private fun ForecastSection(forecast: List<DailyForecastDisplayData>) {
+private fun FiveDaysForecastSection(forecast: List<DailyForecastDisplayData>) {
     Column {
         Text(
             text = stringResource(R.string.fever_forecast_header),
@@ -412,10 +415,13 @@ private fun ForecastSection(forecast: List<DailyForecastDisplayData>) {
         ) {
             LazyRow(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 items(forecast) { day ->
-                    ForecastDayItem(day = day)
+                    ForecastDayItem(
+                        day = day,
+                        modifier = Modifier.width(52.dp),
+                    )
                 }
             }
         }
@@ -423,10 +429,14 @@ private fun ForecastSection(forecast: List<DailyForecastDisplayData>) {
 }
 
 @Composable
-private fun ForecastDayItem(day: DailyForecastDisplayData) {
+private fun ForecastDayItem(
+    day: DailyForecastDisplayData,
+    modifier: Modifier = Modifier,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = modifier
     ) {
         Text(
             text = day.dayName,
@@ -436,8 +446,7 @@ private fun ForecastDayItem(day: DailyForecastDisplayData) {
         AsyncImage(
             model = day.iconUrl,
             contentDescription = null,
-            placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
-            error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+            // Placeholder support can be added via Coil's placeholder/error params
             modifier = Modifier.size(40.dp),
         )
         Text(
@@ -544,7 +553,7 @@ private val previewWeatherDisplay = WeatherDisplayData(
 @Composable
 private fun FeverScreenLoadingPreview() {
     FeverTheme {
-        FeverScreen(uiState = FeverUiState.Loading, onEvent = {})
+        FeverScreen(uiState = com.sls.handbook.feature.fever.FeverUiState.Loading, onEvent = {})
     }
 }
 
@@ -552,7 +561,7 @@ private fun FeverScreenLoadingPreview() {
 @Composable
 private fun FeverScreenSuccessPreview() {
     FeverTheme {
-        FeverScreen(uiState = FeverUiState.Success(previewWeatherDisplay), onEvent = {})
+        FeverScreen(uiState = com.sls.handbook.feature.fever.FeverUiState.Success(previewWeatherDisplay), onEvent = {})
     }
 }
 
@@ -561,7 +570,7 @@ private fun FeverScreenSuccessPreview() {
 private fun FeverScreenErrorPreview() {
     FeverTheme {
         FeverScreen(
-            uiState = FeverUiState.Error("Unable to determine location"),
+            uiState = com.sls.handbook.feature.fever.FeverUiState.Error("Unable to determine location"),
             onEvent = {},
         )
     }
@@ -616,10 +625,10 @@ private fun DetailsSectionPreview() {
 
 @Preview
 @Composable
-private fun ForecastSectionPreview() {
+private fun FiveDaysForecastSectionPreview() {
     FeverTheme {
         Box(modifier = Modifier.padding(16.dp)) {
-            ForecastSection(forecast = previewForecast)
+            FiveDaysForecastSection(forecast = previewForecast)
         }
     }
 }

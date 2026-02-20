@@ -1,5 +1,7 @@
 package com.sls.handbook.feature.fever
 
+import com.sls.handbook.feature.fever.entity.WeatherDisplayData
+
 sealed class FeverUiState(open val weatherDisplay: WeatherDisplayData) {
     data object Loading : FeverUiState(weatherDisplay = WeatherDisplayData.empty())
     data class Success(override val weatherDisplay: WeatherDisplayData) : FeverUiState(weatherDisplay = weatherDisplay)

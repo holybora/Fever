@@ -6,6 +6,9 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import com.sls.handbook.feature.fever.entity.DailyForecastDisplayData
+import com.sls.handbook.feature.fever.entity.HourlyDisplayData
+import com.sls.handbook.feature.fever.entity.WeatherDisplayData
 import com.sls.handbook.feature.fever.theme.FeverTheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -25,7 +28,10 @@ class FeverScreenTest {
     fun `loading state shows progress indicator in FAB`() {
         composeTestRule.setContent {
             FeverTheme {
-                FeverScreen(uiState = FeverUiState.Loading, onEvent = {})
+                _root_ide_package_.com.sls.handbook.feature.fever.ui.FeverScreen(
+                    uiState = FeverUiState.Loading,
+                    onEvent = {},
+                )
             }
         }
 
@@ -39,7 +45,7 @@ class FeverScreenTest {
     fun `success state displays location name`() {
         composeTestRule.setContent {
             FeverTheme {
-                FeverScreen(
+                _root_ide_package_.com.sls.handbook.feature.fever.ui.FeverScreen(
                     uiState = FeverUiState.Success(testWeatherDisplay),
                     onEvent = {},
                 )
@@ -53,7 +59,7 @@ class FeverScreenTest {
     fun `success state displays stat pill values`() {
         composeTestRule.setContent {
             FeverTheme {
-                FeverScreen(
+                _root_ide_package_.com.sls.handbook.feature.fever.ui.FeverScreen(
                     uiState = FeverUiState.Success(testWeatherDisplay),
                     onEvent = {},
                 )
@@ -69,7 +75,7 @@ class FeverScreenTest {
     fun `success state displays detail cards`() {
         composeTestRule.setContent {
             FeverTheme {
-                FeverScreen(
+                _root_ide_package_.com.sls.handbook.feature.fever.ui.FeverScreen(
                     uiState = FeverUiState.Success(testWeatherDisplay),
                     onEvent = {},
                 )
@@ -84,7 +90,7 @@ class FeverScreenTest {
     fun `success state displays forecast section`() {
         composeTestRule.setContent {
             FeverTheme {
-                FeverScreen(
+                _root_ide_package_.com.sls.handbook.feature.fever.ui.FeverScreen(
                     uiState = FeverUiState.Success(testWeatherDisplay),
                     onEvent = {},
                 )
@@ -98,7 +104,7 @@ class FeverScreenTest {
     fun `error state shows snackbar with message`() {
         composeTestRule.setContent {
             FeverTheme {
-                FeverScreen(
+                _root_ide_package_.com.sls.handbook.feature.fever.ui.FeverScreen(
                     uiState = FeverUiState.Error("Network unavailable"),
                     onEvent = {},
                 )
@@ -115,7 +121,7 @@ class FeverScreenTest {
 
         composeTestRule.setContent {
             FeverTheme {
-                FeverScreen(
+                _root_ide_package_.com.sls.handbook.feature.fever.ui.FeverScreen(
                     uiState = FeverUiState.Success(testWeatherDisplay),
                     onEvent = { events.add(it) },
                 )
