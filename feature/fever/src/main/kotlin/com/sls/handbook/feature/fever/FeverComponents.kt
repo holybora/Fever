@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_9_PRO
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.painter.ColorPainter
 import coil3.compose.AsyncImage
 import com.sls.handbook.feature.fever.theme.FeverTheme
 import com.sls.handbook.feature.fever.theme.LocalFeverColors
@@ -167,6 +168,8 @@ internal fun WeatherIconCard(
                     AsyncImage(
                         model = targetIconUrl,
                         contentDescription = iconContentDescription,
+                        placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+                        error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
                         modifier = Modifier.size(100.dp),
                     )
                 }
@@ -254,6 +257,8 @@ internal fun HourlyForecastItem(item: HourlyDisplayData, popColor: Color) {
         AsyncImage(
             model = item.iconUrl,
             contentDescription = null,
+            placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+            error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
             modifier = Modifier.size(40.dp),
         )
         Spacer(modifier = Modifier.height(2.dp))
