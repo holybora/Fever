@@ -95,6 +95,11 @@ class FeverViewModel @Inject constructor(
                 _uiState.value = FeverUiState.Error(
                     stringResolver.getString(R.string.fever_unknown_error),
                 )
+            } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
+                Log.w(TAG, "Unexpected error loading weather", e)
+                _uiState.value = FeverUiState.Error(
+                    stringResolver.getString(R.string.fever_unknown_error),
+                )
             }
         }
     }
