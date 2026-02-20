@@ -16,7 +16,7 @@ Network/API layer with HTTP client setup and DI.
 ## Key Files
 
 - `api/JokeApi.kt` — Retrofit interface: `@GET("random_joke") suspend fun getRandomJoke(): JokeResponse`
-- `api/WeatherApi.kt` — Retrofit interface: `@GET("data/2.5/weather") suspend fun getWeather(lat, lon, appId, units): WeatherResponse`
+- `api/WeatherApi.kt` — Retrofit interface: `@GET("data/2.5/weather") suspend fun getWeather(lat, lon, units, lang): WeatherResponse`
 - `api/HourlyForecastApi.kt` — Retrofit interface: `@GET("data/2.5/forecast") suspend fun getHourlyForecast(lat, lon, appId, units): HourlyForecastResponse`
 - `api/DailyForecastApi.kt` — Retrofit interface: `@GET("data/2.5/forecast") suspend fun getDailyForecast(lat, lon, appId, units): DailyForecastResponse`
 - `model/JokeResponse.kt` — Gson-annotated response model with `type`, `setup`, `punchline`, `id`
