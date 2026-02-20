@@ -9,6 +9,7 @@ import com.sls.handbook.core.domain.usecase.GetForecastDataUseCase
 import com.sls.handbook.core.domain.usecase.GetTodayHourlyForecastUseCase
 import com.sls.handbook.feature.fever.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.IOException
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
@@ -77,9 +78,13 @@ class FeverViewModel @Inject constructor(
                 )
             } catch (e: CancellationException) {
                 throw e
-            } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
+            } catch (@Suppress("SwallowedException") e: IOException) {
                 _uiState.value = FeverUiState.Error(
-                    e.message ?: stringResolver.getString(R.string.fever_unknown_error),
+                    stringResolver.getString(R.string.fever_network_error),
+                )
+            } catch (@Suppress("TooGenericExceptionCaught", "SwallowedException") e: Exception) {
+                _uiState.value = FeverUiState.Error(
+                    stringResolver.getString(R.string.fever_unknown_error),
                 )
             }
         }

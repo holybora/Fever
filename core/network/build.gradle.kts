@@ -24,4 +24,5 @@ dependencies {
     implementation(libs.gson)
 
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
 }

@@ -17,10 +17,9 @@ Repository implementations and data sources.
 
 ## Key Files
 
-- `repository/JokeRepositoryImpl.kt` — `@Singleton` implementation using `DynamicTtlCache` and `JokeApi`
-- `repository/CategoryRepositoryImpl.kt` — `@Singleton` implementation with static category and topic data
 - `repository/WeatherRepositoryImpl.kt` — `@Singleton` thin implementation: fetches current weather and raw forecast data via OpenWeatherMap API, maps DTOs to domain models (no business logic — filtering/aggregation handled by use cases in `:core:domain`)
 - `di/DataModule.kt` — Hilt `@Binds` mapping repository implementations to interfaces
+- `di/ApiKeyModule.kt` — Provides `ApiKeyProvider` implementation from BuildConfig
 
 ## Source
 
@@ -29,10 +28,10 @@ Repository implementations and data sources.
 ## Tests
 
 - `src/test/` — JVM unit tests
-  - `JokeRepositoryImplTest.kt` — Repository implementation, MockK-based API mocking, cache behavior, error propagation tests
+  - `WeatherRepositoryImplTest.kt` — MockK-based API mocking, response mapping, null handling, error propagation tests
 
 ## Notes
 
 - Implements repository interfaces from `:core:domain`
 - Uses Hilt `@Module` + `@Binds` to provide repository implementations
-- Coordinates between local and remote data sources
+- API key read from `local.properties` or `OPENWEATHER_API_KEY` env var via BuildConfig

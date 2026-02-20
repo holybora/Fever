@@ -14,13 +14,13 @@ Convention plugins for standardised Gradle module configuration.
 | `feverweather.android.test`            | `AndroidTestConventionPlugin`           | Common test dependencies (JUnit, MockK, Turbine, Coroutines Test, Robolectric, Compose UI test) |
 | `feverweather.jvm.library`             | `JvmLibraryConventionPlugin`            | Pure JVM Kotlin (Java 11, no Android, auto-applies detekt + kover)                              |
 | `feverweather.detekt`                  | `DetektConventionPlugin`                | Static analysis with detekt + formatting + Compose rules                                        |
-| `feverweather.kover`                   | `KoverConventionPlugin`                 | Code coverage with exclusions for generated code, Hilt, and Compose (`@Composable`)             |
+| `feverweather.kover`                   | `KoverConventionPlugin`                 | Code coverage (50% min) with exclusions for generated code, Hilt, and Compose (`@Composable`)   |
 | `feverweather.android.lint`            | `AndroidLintConventionPlugin`           | Android Lint with `warningsAsErrors`, HTML/XML reports, `config/lint/lint.xml`                  |
 
 ## Key Files
 
 - `AndroidFeatureConventionPlugin.kt` — Most complex; auto-adds `:core:designsystem`, `:core:domain`, `:core:model`, `:navigation` + Compose/Lifecycle/Hilt deps
-- `KoverConventionPlugin.kt` — Excludes `@Composable`, `@Preview`, Hilt, and generated Android classes from coverage reports
+- `KoverConventionPlugin.kt` — Enforces 50% min coverage; excludes `@Composable`, `@Preview`, Hilt, and generated Android classes
 - `DetektConventionPlugin.kt` — Configures detekt with custom rules from `config/detekt/detekt.yml`
 - `KotlinAndroid.kt` — Shared Kotlin/Android configuration (SDK levels, JVM target)
 - `ProjectExtensions.kt` — `libs` extension for accessing version catalog
