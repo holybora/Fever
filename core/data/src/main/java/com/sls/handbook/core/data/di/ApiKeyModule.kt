@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
+/** Hilt module that provides the [ApiKeyProvider] implementation backed by BuildConfig. */
 @Module
 @InstallIn(SingletonComponent::class)
 internal object ApiKeyModule {

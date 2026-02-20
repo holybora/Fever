@@ -8,10 +8,12 @@ import javax.inject.Qualifier
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
+/** Qualifier annotation for Hilt injection of the IO [CoroutineDispatcher]. */
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class IoDispatcher
 
+/** Hilt module providing coroutine dispatchers. */
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DispatcherModule {

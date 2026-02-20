@@ -4,6 +4,13 @@ import com.sls.handbook.core.domain.repository.WeatherRepository
 import com.sls.handbook.core.model.Weather
 import javax.inject.Inject
 
+/**
+ * Retrieves current weather conditions for a given location.
+ *
+ * Delegates to [WeatherRepository.getWeather].
+ *
+ * @param weatherRepository data source for weather information
+ */
 class GetCurrentWeatherUseCase @Inject constructor(
     private val weatherRepository: WeatherRepository,
 ) {

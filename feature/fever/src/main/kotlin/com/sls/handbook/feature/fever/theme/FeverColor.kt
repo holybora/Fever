@@ -28,6 +28,20 @@ val SoftBlue = Color(0xFF5B9BD5)
 // Error
 val CoralRed = Color(0xFFFF6B6B)
 
+/**
+ * Extended color palette for the Fever feature theme, providing colors beyond Material3 defaults.
+ *
+ * Accessed within Compose via [LocalFeverColors].
+ *
+ * @property gradientTop top color of the vertical background gradient
+ * @property gradientBottom bottom color of the vertical background gradient
+ * @property glassSurface semi-transparent white for glassmorphism card surfaces
+ * @property glassBorder semi-transparent white for glassmorphism card borders
+ * @property iconOrange accent color for temperature stat pill icons
+ * @property iconBlue accent color for wind stat pill icons
+ * @property iconCyan accent color for secondary stat pill icons
+ * @property iconTeal accent color for humidity stat pill icons
+ */
 @Immutable
 data class FeverExtendedColors(
     val gradientTop: Color = SkyBlueLight,

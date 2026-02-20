@@ -12,6 +12,13 @@ import javax.inject.Singleton
 import kotlin.coroutines.cancellation.CancellationException
 import retrofit2.HttpException
 
+/**
+ * Production implementation of [WeatherRepository] backed by the OpenWeatherMap API.
+ *
+ * Maps network DTOs from [WeatherApi] to domain model types.
+ *
+ * @param weatherApi Retrofit service for OpenWeatherMap endpoints
+ */
 @Singleton
 class WeatherRepositoryImpl @Inject constructor(
     private val weatherApi: WeatherApi,

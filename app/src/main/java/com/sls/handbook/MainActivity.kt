@@ -8,6 +8,11 @@ import androidx.activity.enableEdgeToEdge
 import com.sls.handbook.ui.FeverWeatherApp
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Single activity host for the FeverWeather application.
+ *
+ * Enables edge-to-edge display and sets the Compose content root.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
