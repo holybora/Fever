@@ -12,7 +12,6 @@ import java.time.ZoneOffset
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val AppId = "ae103060692fe13422deb98285505dc6"
 private const val MiddayHour = 12
 
 @Singleton
@@ -26,7 +25,7 @@ class WeatherRepositoryImpl @Inject constructor(
         lang: String,
     ): Pair<Weather, List<DailyForecast>> {
         val weather = fetchWeather(lat, lon, lang)
-        val forecastResponse = weatherApi.getForecast(lat = lat, lon = lon, appId = AppId, lang = lang)
+        val forecastResponse = weatherApi.getForecast(lat = lat, lon = lon, lang = lang)
         val today = LocalDate.now(ZoneOffset.UTC)
         val forecast = forecastResponse.list
             .groupBy { item ->
@@ -39,7 +38,7 @@ class WeatherRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getHourlyForecast(lat: Double, lon: Double, lang: String): List<HourlyForecast> {
-        val response = weatherApi.getForecast(lat = lat, lon = lon, appId = AppId, lang = lang)
+        val response = weatherApi.getForecast(lat = lat, lon = lon, lang = lang)
         val zoneOffset = ZoneOffset.ofTotalSeconds(response.city.timezone)
         val today = LocalDate.now(zoneOffset)
         return response.list
@@ -60,7 +59,7 @@ class WeatherRepositoryImpl @Inject constructor(
     }
 
     private suspend fun fetchWeather(lat: Double, lon: Double, lang: String): Weather {
-        val response = weatherApi.getWeather(lat = lat, lon = lon, appId = AppId, lang = lang)
+        val response = weatherApi.getWeather(lat = lat, lon = lon, lang = lang)
         val condition = response.weather.firstOrNull()
         return Weather(
             cityName = response.name,

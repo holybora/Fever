@@ -10,7 +10,6 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":core:model"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.serialization.json)
