@@ -5,6 +5,7 @@
 complexity:
   LongParameterList:
     functionThreshold: 10
+    constructorThreshold: 10
     ignoreDefaultParameters: true
   TooManyFunctions:
     ignoreAnnotatedFunctions:

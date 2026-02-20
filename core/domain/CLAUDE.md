@@ -10,12 +10,16 @@ Business logic and use cases layer. **JVM-only** — no Android dependencies.
 ## Dependencies
 
 - `:core:model`
+- `javax.inject` — JSR-330 `@Inject` for Hilt auto-discovery of use cases
 
 ## Key Files
 
-- `repository/JokeRepository.kt` — Repository interface `getJoke(ttlMillis)` + `JokeResult` data class
-- `repository/CategoryRepository.kt` — Repository interface `getCategories()` + `getTopicsByCategoryId()`
-- `repository/WeatherRepository.kt` — Repository interface with `getWeatherWithForecast(lat, lon)` and `getHourlyForecast(lat, lon)` for weather data access
+- `repository/WeatherRepository.kt` — Repository interface with `getWeather(lat, lon)` and `getForecastData(lat, lon)` for raw weather data access
+- `usecase/GetCurrentWeatherUseCase.kt` — Suspend use case wrapping `WeatherRepository.getWeather()`
+- `usecase/GetForecastDataUseCase.kt` — Suspend use case wrapping `WeatherRepository.getForecastData()`
+- `usecase/GetFiveDayForecastUseCase.kt` — Pure use case: groups forecast items by UTC date, filters future-only, aggregates daily (midday selection + min/max temps)
+- `usecase/GetTodayHourlyForecastUseCase.kt` — Pure use case: timezone-aware today filtering, maps `ForecastItem` to `HourlyForecast`
+- `usecase/GenerateRandomCoordinatesUseCase.kt` — Pure use case: generates random lat/lon within valid geographic bounds
 
 ## Source
 
@@ -24,7 +28,9 @@ Business logic and use cases layer. **JVM-only** — no Android dependencies.
 ## Tests
 
 - `src/test/` — JVM unit tests
-  - `JokeResultTest.kt` — Data class properties, equality, copy operations tests
+  - `usecase/GetFiveDayForecastUseCaseTest.kt` — Date grouping, future filtering, midday selection, min/max aggregation
+  - `usecase/GetTodayHourlyForecastUseCaseTest.kt` — Timezone-aware filtering, field mapping
+  - `usecase/GenerateRandomCoordinatesUseCaseTest.kt` — Bounds validation
 
 ## Notes
 

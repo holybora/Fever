@@ -1,64 +1,19 @@
 package com.sls.handbook.core.data.repository
 
 import com.sls.handbook.core.domain.repository.WeatherRepository
-import com.sls.handbook.core.model.DailyForecast
-import com.sls.handbook.core.model.HourlyForecast
+import com.sls.handbook.core.model.ForecastData
+import com.sls.handbook.core.model.ForecastItem
 import com.sls.handbook.core.model.Weather
 import com.sls.handbook.core.network.api.WeatherApi
-import com.sls.handbook.core.network.model.ForecastItemResponse
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val MiddayHour = 12
-
 @Singleton
 class WeatherRepositoryImpl @Inject constructor(
-    private val weatherApi: WeatherApi
+    private val weatherApi: WeatherApi,
 ) : WeatherRepository {
 
-    override suspend fun getWeatherWithForecast(
-        lat: Double,
-        lon: Double,
-        lang: String,
-    ): Pair<Weather, List<DailyForecast>> {
-        val weather = fetchWeather(lat, lon, lang)
-        val forecastResponse = weatherApi.getForecast(lat = lat, lon = lon, lang = lang)
-        val today = LocalDate.now(ZoneOffset.UTC)
-        val forecast = forecastResponse.list
-            .groupBy { item ->
-                Instant.ofEpochSecond(item.dt).atZone(ZoneOffset.UTC).toLocalDate()
-            }
-            .filterKeys { it.isAfter(today) }
-            .toSortedMap()
-            .map { (_, items) -> aggregateDay(items) }
-        return weather to forecast
-    }
-
-    override suspend fun getHourlyForecast(lat: Double, lon: Double, lang: String): List<HourlyForecast> {
-        val response = weatherApi.getForecast(lat = lat, lon = lon, lang = lang)
-        val zoneOffset = ZoneOffset.ofTotalSeconds(response.city.timezone)
-        val today = LocalDate.now(zoneOffset)
-        return response.list
-            .filter { entry ->
-                val entryDate = Instant.ofEpochSecond(entry.dt).atOffset(zoneOffset).toLocalDate()
-                entryDate == today
-            }
-            .map { entry ->
-                val condition = entry.weather.firstOrNull()
-                HourlyForecast(
-                    dt = entry.dt,
-                    temperature = entry.main.temp,
-                    icon = condition?.icon.orEmpty(),
-                    description = condition?.description.orEmpty(),
-                    pop = entry.pop,
-                )
-            }
-    }
-
-    private suspend fun fetchWeather(lat: Double, lon: Double, lang: String): Weather {
+    override suspend fun getWeather(lat: Double, lon: Double, lang: String): Weather {
         val response = weatherApi.getWeather(lat = lat, lon = lon, lang = lang)
         val condition = response.weather.firstOrNull()
         return Weather(
@@ -79,16 +34,22 @@ class WeatherRepositoryImpl @Inject constructor(
         )
     }
 
-    private fun aggregateDay(items: List<ForecastItemResponse>): DailyForecast {
-        val middayItem = items.minBy { item ->
-            val hour = Instant.ofEpochSecond(item.dt).atZone(ZoneOffset.UTC).hour
-            kotlin.math.abs(hour - MiddayHour)
-        }
-        return DailyForecast(
-            dateEpochSeconds = middayItem.dt,
-            tempMin = items.minOf { it.main.tempMin },
-            tempMax = items.maxOf { it.main.tempMax },
-            icon = middayItem.weather.firstOrNull()?.icon.orEmpty(),
+    override suspend fun getForecastData(lat: Double, lon: Double, lang: String): ForecastData {
+        val response = weatherApi.getForecast(lat = lat, lon = lon, lang = lang)
+        return ForecastData(
+            items = response.list.map { entry ->
+                val condition = entry.weather.firstOrNull()
+                ForecastItem(
+                    dt = entry.dt,
+                    temperature = entry.main.temp,
+                    tempMin = entry.main.tempMin,
+                    tempMax = entry.main.tempMax,
+                    icon = condition?.icon.orEmpty(),
+                    description = condition?.description.orEmpty(),
+                    pop = entry.pop,
+                )
+            },
+            timezoneOffsetSeconds = response.city.timezone,
         )
     }
 }

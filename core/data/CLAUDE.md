@@ -19,7 +19,7 @@ Repository implementations and data sources.
 
 - `repository/JokeRepositoryImpl.kt` — `@Singleton` implementation using `DynamicTtlCache` and `JokeApi`
 - `repository/CategoryRepositoryImpl.kt` — `@Singleton` implementation with static category and topic data
-- `repository/WeatherRepositoryImpl.kt` — `@Singleton` implementation providing current weather, 5-day daily forecast, and hourly forecast (filtered to current day only) via OpenWeatherMap API
+- `repository/WeatherRepositoryImpl.kt` — `@Singleton` thin implementation: fetches current weather and raw forecast data via OpenWeatherMap API, maps DTOs to domain models (no business logic — filtering/aggregation handled by use cases in `:core:domain`)
 - `di/DataModule.kt` — Hilt `@Binds` mapping repository implementations to interfaces
 
 ## Source
