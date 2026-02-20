@@ -10,6 +10,14 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
+    defaultConfig {
+        buildConfigField(
+            "String",
+            "WEATHER_API_BASE_URL",
+            "\"https://api.openweathermap.org/\"",
+        )
+    }
 }
 
 dependencies {

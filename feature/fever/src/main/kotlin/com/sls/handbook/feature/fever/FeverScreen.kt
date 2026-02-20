@@ -54,6 +54,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.painter.ColorPainter
 import coil3.compose.AsyncImage
 import com.sls.handbook.feature.fever.theme.FeverTheme
 import com.sls.handbook.feature.fever.theme.IconTeal
@@ -435,6 +436,8 @@ private fun ForecastDayItem(day: DailyForecastDisplayData) {
         AsyncImage(
             model = day.iconUrl,
             contentDescription = null,
+            placeholder = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+            error = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
             modifier = Modifier.size(40.dp),
         )
         Text(
