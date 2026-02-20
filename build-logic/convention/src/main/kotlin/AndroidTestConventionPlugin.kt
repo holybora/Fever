@@ -21,6 +21,7 @@ class AndroidTestConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", libs.findLibrary("androidx-junit").get())
                 add("androidTestImplementation", libs.findLibrary("androidx-espresso-core").get())
                 add("androidTestImplementation", libs.findLibrary("androidx-compose-ui-test-junit4").get())
+                add("androidTestImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
 
                 // Debug dependencies
                 add("debugImplementation", libs.findLibrary("androidx-compose-ui-test-manifest").get())

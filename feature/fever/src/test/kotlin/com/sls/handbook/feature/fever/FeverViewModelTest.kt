@@ -33,9 +33,9 @@ class FeverViewModelTest {
         Dispatchers.setMain(testDispatcher)
         every { coordinatesGenerator.generate() } returns Coordinates(10.0, 20.0)
         coEvery {
-            weatherRepository.getWeatherWithForecast(any(), any())
+            weatherRepository.getWeatherWithForecast(any(), any(), any())
         } returns (testWeather to emptyList())
-        coEvery { weatherRepository.getHourlyForecast(any(), any()) } returns emptyList()
+        coEvery { weatherRepository.getHourlyForecast(any(), any(), any()) } returns emptyList()
         every { stringResolver.getString(any(), *anyVararg()) } returns "test"
     }
 
@@ -88,7 +88,7 @@ class FeverViewModelTest {
         advanceUntilIdle()
 
         // init + one refresh = exactly 2 calls
-        coVerify(exactly = 2) { weatherRepository.getWeatherWithForecast(any(), any()) }
+        coVerify(exactly = 2) { weatherRepository.getWeatherWithForecast(any(), any(), any()) }
     }
 
     @Test
@@ -103,13 +103,13 @@ class FeverViewModelTest {
         advanceUntilIdle() // second refresh completes
 
         // init + 2 refreshes = exactly 3 calls
-        coVerify(exactly = 3) { weatherRepository.getWeatherWithForecast(any(), any()) }
+        coVerify(exactly = 3) { weatherRepository.getWeatherWithForecast(any(), any(), any()) }
     }
 
     @Test
     fun `emits Error when repository throws`() = runTest(testDispatcher) {
         coEvery {
-            weatherRepository.getWeatherWithForecast(any(), any())
+            weatherRepository.getWeatherWithForecast(any(), any(), any())
         } throws RuntimeException("Network error")
 
         val viewModel = createViewModel()
@@ -124,7 +124,7 @@ class FeverViewModelTest {
     @Test
     fun `onEvent Refresh works after Error state`() = runTest(testDispatcher) {
         coEvery {
-            weatherRepository.getWeatherWithForecast(any(), any())
+            weatherRepository.getWeatherWithForecast(any(), any(), any())
         } throws RuntimeException("fail")
 
         val viewModel = createViewModel()
@@ -132,7 +132,7 @@ class FeverViewModelTest {
         assertTrue(viewModel.uiState.value is FeverUiState.Error)
 
         coEvery {
-            weatherRepository.getWeatherWithForecast(any(), any())
+            weatherRepository.getWeatherWithForecast(any(), any(), any())
         } returns (testWeather to emptyList())
 
         viewModel.onEvent(FeverEvent.Refresh)

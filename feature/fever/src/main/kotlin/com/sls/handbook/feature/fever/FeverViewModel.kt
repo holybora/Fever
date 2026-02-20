@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.Locale
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -43,9 +44,10 @@ class FeverViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             try {
                 val (lat, lon) = coordinatesGenerator.generate()
-                val (weather, dailyForecast) = weatherRepository.getWeatherWithForecast(lat, lon)
+                val lang = Locale.getDefault().language
+                val (weather, dailyForecast) = weatherRepository.getWeatherWithForecast(lat, lon, lang)
                 val hourlyForecasts = try {
-                    weatherRepository.getHourlyForecast(lat, lon)
+                    weatherRepository.getHourlyForecast(lat, lon, lang)
                 } catch (@Suppress("TooGenericExceptionCaught", "SwallowedException") e: Exception) {
                     emptyList()
                 }
